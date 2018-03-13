@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const DEBUG = process.env.DEBUG || false
 
@@ -50,8 +49,14 @@ if (NODE_ENV === 'development') {
   webpackConfig.devServer = {hot: true}
   webpackConfig.plugins.unshift(
     new webpack.HotModuleReplacementPlugin(),
-    new CleanWebpackPlugin([webpackConfig.output.path]),
   )
+}
+
+
+// Testing
+
+if (NODE_ENV === 'testing') {
+  webpackConfig.mode = 'development'
 }
 
 
