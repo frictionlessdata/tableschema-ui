@@ -1,0 +1,27 @@
+sudo:
+  false
+
+language:
+  node_js
+
+node_js:
+  - 9
+
+script:
+  - npm run compile:prod
+  - npm run build:prod
+  - npm run build
+  - npm run test
+
+after_script:
+  - npm run coveralls
+
+deploy:
+  provider: npm
+  email: eskarev@gmail.com
+  skip_cleanup: true
+  on:
+    tags: true
+    branch: master
+  api_key:
+    secure: a9aELxabvfORIkmeewubzcAjua2zlJ74WJiY5xjT9zJ3pe46oLU5Dmy1m/tDJRKeBCK6cHBLahq83oCg03ZnsdtPIPydictYKFRUOa5fGj/nQ5ZvvgLDoV7mcc5bYL/9JC2svgGbR6Pe+jFGcoMVa0A7wOn0abi/VNIa9N/z4jt1FrU8vRQMgNHPkLTof5IU3r6Y7TuGxSl+V8olbz2AZSmH1VmgIzKY98+/no6Ot7H1+dcHxPZd/zZsV1/8hZVOsRTqeKPOnUgiZVqc1Y+E3RA3urq8dD3J+w/AXAncLNe3CcoSVFCCv56qLmQLITcrAWvQRIYwTaSLpU6ZtGu7TOXXOJlAe+s85vPe7lFaJuUn/A+HaL5KO698jP0CnKy8amrpk/+1sjTGf60XDJO5rhGSQC1EQo8FYfgRO1mOX8bVK++g1+admTDbftFhj9XlQ3dRnLg2CdnAPC4MsuQCwHw5E4lZ9Ef7QWPku33mU3iO/uNDNEVZJLYRlcZbha0le2rvpTv7EiRj40TI7n64tCJq8gLkibvTAH6/Bd5jIdhEFgcnVy8y2EDDlSV/epXRA4Zl1O/ta85fqxyso/qe/LxRNLmDHJbhQJH0Fa5bR9Jwztyq8tSQ21ilzAVG6xL0iPRd7c/IFlzQmPHIpDGYja+hhBPc99hgiuqAnBLQKdc=
