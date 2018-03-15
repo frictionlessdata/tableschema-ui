@@ -15,7 +15,10 @@
   <script src="//unpkg.com/tableschema-ui/dist/tableschema-ui.min.js"></script>
   <script src="/dist/tableschema-ui.js"></script>
   <script>
-    const props = {onSave: (descriptor) => console.log(descriptor)}
+    const props = {
+      descriptor: JSON.stringify({fields: [{name: "name", type: "string"}]}, null, 2),
+      onSave: (descriptor) => console.log(descriptor),
+    }
     const element = document.getElementById('editor-schema')
     tableschemaUI.render(tableschemaUI.EditorSchema, props, element)
   </script>
