@@ -15,7 +15,9 @@
   <script src="//unpkg.com/tableschema-ui/dist/tableschema-ui.min.js"></script>
   <script src="/dist/tableschema-ui.js"></script>
   <script>
-    tableschemaUI.render(tableschemaUI.EditorSchema, {}, document.getElementById('editor-schema'))
+    const props = {onSave: (schema) => console.log(schema)}
+    const element = document.getElementById('editor-schema')
+    tableschemaUI.render(tableschemaUI.EditorSchema, props, element)
   </script>
 
 </body>
