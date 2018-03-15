@@ -12,7 +12,7 @@ const EditorSchema = ({descriptor, onSave}) => {
       <div className="form-group">
         <textarea className="form-control" ref={(ref) => {refs.text = ref}} />
       </div>
-      <a className="btn btn-primary" onClick={(ev) => onSave(refs.text.value)}>
+      <a href="#" className="btn btn-primary" onClick={(ev) => onSave(refs.text.value)}>
         Save
       </a>
     </div>
