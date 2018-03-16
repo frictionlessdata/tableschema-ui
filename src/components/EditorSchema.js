@@ -1,4 +1,5 @@
 const React = require('react')
+const {hot} = require('react-hot-loader')
 
 
 // Component
@@ -35,6 +36,6 @@ const EditorSchema = ({descriptor, onSave}) => {
 module.exports = {
 
   // Public
-  EditorSchema,
+  EditorSchema: module.hot ? hot(module)(EditorSchema) : EditorSchema,
 
 }
