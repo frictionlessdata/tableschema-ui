@@ -6,7 +6,9 @@
 <body>
 
   <!-- Application -->
-  <div id="editor-schema"></div>
+  <div class="container" style="padding: 1em">
+    <div id="editor-schema"></div>
+  </div>
 
   <!-- Scripts -->
   <script src="//code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -16,7 +18,10 @@
   <script src="/dist/tableschema-ui.js"></script>
   <script>
     const props = {
-      descriptor: JSON.stringify({fields: [{name: "name", type: "string"}]}, null, 2),
+      descriptor: {fields: [
+        {name: "id", type: "integer"},
+        {name: "name", type: "string"},
+      ]},
       onSave: (descriptor) => console.log(descriptor),
     }
     const element = document.getElementById('editor-schema')

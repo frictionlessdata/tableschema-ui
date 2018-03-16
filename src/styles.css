@@ -1,0 +1,22 @@
+.tableschema-ui-editor .controls {
+  padding: 0 0.5em;
+}
+
+.tableschema-ui-editor .field {
+  padding: 0.5em;
+}
+
+.tableschema-ui-editor .field:nth-child(even) {
+  background-color: #fafafa;
+  border-radius: 0.3em;
+}
+
+.tableschema-ui-editor .input-group-text {
+  background-color: #fafafa;
+  font-size: 80%;
+  color: #aaa;
+}
+
+.tableschema-ui-editor .field .field-name  {
+  font-weight: bold;
+}

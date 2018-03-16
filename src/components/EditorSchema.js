@@ -1,5 +1,6 @@
 const React = require('react')
 const {hot} = require('react-hot-loader')
+const {EditorField} = require('./EditorField')
 
 
 // Component
@@ -7,20 +8,17 @@ const {hot} = require('react-hot-loader')
 const EditorSchema = ({descriptor, onSave}) => {
   const refs = {}
   return (
-    <div className="container" style={{border: 'solid 1px #f00', padding: '1em'}}>
-      <h3>Schema Editor</h3>
+    <div class="tableschema-ui-editor">
 
-      {/* Text */}
-      <div className="form-group">
-        <textarea
-          className="form-control"
-          ref={(ref) => {refs.text = ref}}
-          defaultValue={descriptor}
-        />
+      {/* Fields */}
+      <div className="form-group fields">
+      {descriptor.fields.map(field => (
+        <EditorField key={field.name} field={field} />
+      ))}
       </div>
 
       {/* Button */}
-      <div className="form-group">
+      <div className="form-group controls">
         <a href="#" className="btn btn-primary" onClick={(ev) => onSave(refs.text.value)}>
           Save
         </a>
