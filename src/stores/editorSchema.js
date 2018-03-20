@@ -1,23 +1,37 @@
-const produce = require('immer')
 const uuidv4 = require('uuid/v4')
+
+
+// Initial
+
+const initial = {
+
+}
+
+
+// Handlers
+
+const handlers = {
+
+  onRender:
+    ({schema}) => (dispatch) => {
+      dispatch({
+        type: 'UPDATE_SCHEMA',
+        schema,
+      })
+    },
+
+}
 
 
 // Mutations
 
 const mutations = {
 
-  // State
-
-  INITIATE_STATE:
-    (state, {source, schema}) => {
-      state.source = source
-      state.schema = schema
-    },
-
   // Schema
 
-  UPDATE_FIELD:
-    ({schema}, {columnId, payload}) => {
+  UPDATE_SCHEMA:
+    (state, {schema}) => {
+      state.schema = schema
     },
 
 }
@@ -26,5 +40,7 @@ const mutations = {
 // System
 
 module.exports = {
+  initial,
+  handlers,
   mutations,
 }

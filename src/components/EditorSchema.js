@@ -1,10 +1,9 @@
 const React = require('react')
 const {hot} = require('react-hot-loader')
-const {connect} = require('react-redux')
 const {Provider} = require('react-redux')
 const {EditorField} = require('./EditorField')
-const {mutations} = require('../stores/editorSchema')
-const {createStore} = require('../store')
+const {connect, createStore} = require('../store')
+const {initial, handlers, mutations} = require('../stores/editorSchema')
 
 
 // Components
@@ -12,7 +11,7 @@ const {createStore} = require('../store')
 const PureEditorSchema = ({schema, onSave}) => {
   const refs = {}
   return (
-    <div class="tableschema-ui-editor">
+    <div className="tableschema-ui-editor">
 
       {/* Fields */}
       <div className="form-group fields">
@@ -33,30 +32,15 @@ const PureEditorSchema = ({schema, onSave}) => {
 }
 
 
-// State
-
-const mapStateToProps = (state) => ({
-
-  schema:
-    state.schema,
-
-})
-
-
-// Actions
-
-const mapDispatchToProps = (dispatch) => ({
-})
-
-
 // Containers
 
-let EditorSchema = connect(mapStateToProps, mapDispatchToProps)(PureEditorSchema)
-EditorSchema.Provider = (props) => {
-  const store = createStore(mutations, props)
+const EditorSchema = (props) => {
+  const store = createStore(initial, handlers, mutations, props)
+  const Consumer = connect(PureEditorSchema, ['schema'])
+  store.dispatch(handlers.onRender(props))
   return (
     <Provider store={store}>
-      <EditorSchema />
+      <Consumer />
     </Provider>
   )
 }
@@ -67,6 +51,6 @@ EditorSchema.Provider = (props) => {
 module.exports = {
 
   // Public
-  EditorSchema: module.hot ? EditorSchema = hot(module)(EditorSchema): EditorSchema,
+  EditorSchema: module.hot ? hot(module)(EditorSchema): EditorSchema,
 
 }

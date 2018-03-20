@@ -1,29 +1,38 @@
 const redux = require('redux')
-const produce = require('immer').default
+const pick = require('lodash/pick')
+const reactRedux = require('react-redux')
 const thunk = require('redux-thunk').default
+const produce = require('immer').default
 
 
 // Module API
 
-const createStore = (mutations, props={}) => {
+const connect = (component, mapping) => {
+  const mapState = mapping instanceof Array ? (state) => pick(state, mapping) : mapping
+  return reactRedux.connect(mapState)(component)
+}
+
+
+const createStore = (initial, handlers, mutations) => {
   return redux.createStore(
-    createReducer(mutations, props),
+    createReducer(initial, handlers, mutations),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    redux.applyMiddleware(thunk),
+    redux.applyMiddleware(thunk)
   )
 }
 
 
-const createReducer = (mutations, props={}) => (state, action) => {
-  action = state ? action : {type: 'INITIATE_STATE', ...props}
+const createReducer = (initial, handlers, mutations) => (state, action) => {
+  if (!state) return {...initial, handlers}
   const mutation = mutations[action.type]
-  return mutation ? produce(state || {}, draft => mutation(draft, action)) : state
+  return mutation ? produce(state, draft => mutation(draft, action)) : state
 }
 
 
 // System
 
 module.exports = {
+  connect,
   createStore,
   createReducer,
 }

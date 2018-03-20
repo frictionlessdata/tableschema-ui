@@ -29,7 +29,7 @@ const EditorField = ({field}) => {
           <div className="input-group-prepend">
             <div className="input-group-text">Type</div>
           </div>
-          <select class="form-control">
+          <select className="form-control">
             {getFieldTypes().map(type => (
               <option key={type}>{type}</option>
             ))}
@@ -43,7 +43,7 @@ const EditorField = ({field}) => {
           <div className="input-group-prepend">
             <div className="input-group-text">Format</div>
           </div>
-          <select class="form-control">
+          <select className="form-control">
             <option>default</option>
           </select>
         </div>
@@ -51,8 +51,8 @@ const EditorField = ({field}) => {
 
       {/* Controls */}
       <div className="col-md-3">
-        <div class="btn btn-warning">S</div>
-        <div class="btn btn-danger">X</div>
+        <div className="btn btn-warning">S</div>
+        <div className="btn btn-danger">X</div>
       </div>
 
     </div>
