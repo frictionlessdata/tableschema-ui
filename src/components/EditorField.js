@@ -2,7 +2,7 @@ const React = require('react')
 const config = require('../config')
 
 
-// Component
+// Components
 
 const EditorField = ({field}) => {
   return (
@@ -60,7 +60,7 @@ const EditorField = ({field}) => {
 }
 
 
-// Internal
+// Helpers
 
 const getFieldTypes = () => {
   return Object.keys(config.FIELD_TYPES_AND_FORMATS)
