@@ -2,48 +2,52 @@ const React = require('react')
 const {hot} = require('react-hot-loader')
 const {Provider} = require('react-redux')
 const {EditorField} = require('./EditorField')
-const {connect, createStore} = require('../store')
-const {initial, handlers, mutations} = require('../stores/editorSchema')
+const {storeManager} = require('../stores/editorSchema')
 
 
 // Components
 
-const PureEditorSchema = ({schema, onSave}) => {
-  const refs = {}
+const EditorSchema = ({source, schema, onSave}) => {
+
+  // Create store
+  const store = storeManager.createStore()
+  store.dispatch(storeManager.handlers.onRender({source, schema, onSave}))
+
+  // Render
+  return (
+    <Provider store={store}>
+      <EditorSchemaConsumer />
+    </Provider>
+  )
+}
+
+
+const EditorSchemaConsumer = storeManager.connect({
+
+  mapState: ['columns'],
+  mapDispatch: ['onSaveClick'],
+
+})(({columns, onSaveClick}) => {
   return (
     <div className="tableschema-ui-editor">
 
       {/* Fields */}
       <div className="form-group fields">
-      {schema.fields.map(field => (
-        <EditorField key={field.name} field={field} />
+      {columns.map(column => (
+        <EditorField key={column.id} columnId={column.id} />
       ))}
       </div>
 
       {/* Button */}
       <div className="form-group controls">
-        <a href="#" className="btn btn-primary" onClick={(ev) => onSave(refs.text.value)}>
+        <div className="btn btn-primary" onClick={onSaveClick}>
           Save
-        </a>
+        </div>
       </div>
 
     </div>
   )
-}
-
-
-// Containers
-
-const EditorSchema = (props) => {
-  const store = createStore(initial, handlers, mutations, props)
-  const Consumer = connect(PureEditorSchema, ['schema'])
-  store.dispatch(handlers.onRender(props))
-  return (
-    <Provider store={store}>
-      <Consumer />
-    </Provider>
-  )
-}
+})
 
 
 // System

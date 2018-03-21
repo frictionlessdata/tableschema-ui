@@ -7,32 +7,44 @@ const produce = require('immer').default
 
 // Module API
 
-const connect = (component, mapping) => {
-  const mapState = mapping instanceof Array ? (state) => pick(state, mapping) : mapping
-  return reactRedux.connect(mapState)(component)
-}
+class StoreManager {
 
+  // Public
 
-const createStore = (initial, handlers, mutations) => {
-  return redux.createStore(
-    createReducer(initial, handlers, mutations),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    redux.applyMiddleware(thunk)
-  )
-}
+  constructor(initial, handlers, mutations) {
+    this.initial = initial
+    this.handlers = handlers
+    this.mutations = mutations
+  }
 
+  connect({mapState, mapDispatch}) {
+    return (component) => reactRedux.connect(
+      mapState instanceof Array ? (state) => pick(state, mapState) : mapState,
+      mapDispatch instanceof Array ? pick(this.handlers, mapDispatch) : mapDispatch
+    )(component)
+  }
 
-const createReducer = (initial, handlers, mutations) => (state, action) => {
-  if (!state) return {...initial, handlers}
-  const mutation = mutations[action.type]
-  return mutation ? produce(state, draft => mutation(draft, action)) : state
+  createStore() {
+    return redux.createStore(
+      this.createReducer(),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+      redux.applyMiddleware(thunk)
+    )
+  }
+
+  createReducer() {
+    return (state, action) => {
+      if (!state) return this.initial
+      const mutation = this.mutations[action.type]
+      return mutation ? produce(state, draft => mutation(draft, action)) : state
+    }
+  }
+
 }
 
 
 // System
 
 module.exports = {
-  connect,
-  createStore,
-  createReducer,
+  StoreManager,
 }

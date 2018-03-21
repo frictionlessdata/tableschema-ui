@@ -1,4 +1,5 @@
 const uuidv4 = require('uuid/v4')
+const {StoreManager} = require('../store')
 
 
 // Initial
@@ -13,11 +14,29 @@ const initial = {
 const handlers = {
 
   onRender:
-    ({schema}) => (dispatch) => {
-      dispatch({
-        type: 'UPDATE_SCHEMA',
-        schema,
-      })
+    ({source, schema, onSave}) => (dispatch) => {
+
+      // Load source
+
+      // Load schema
+
+      // Compose columns
+      const columns = []
+      for (const field of schema.fields) {
+        columns.push({id: uuidv4(), field})
+      }
+
+      // Dispatch actions
+      dispatch({type: 'SET_COLUMNS', columns})
+      dispatch({type: 'SET_ON_SAVE', onSave})
+
+    },
+
+  onSaveClick:
+    () => (dispatch, getState) => {
+      const state = getState()
+      const schema = {fields: state.columns.map(column => column.field)}
+      state.onSave(schema)
     },
 
 }
@@ -27,11 +46,14 @@ const handlers = {
 
 const mutations = {
 
-  // Schema
+  SET_COLUMNS:
+    (state, {columns}) => {
+      state.columns = columns
+    },
 
-  UPDATE_SCHEMA:
-    (state, {schema}) => {
-      state.schema = schema
+  SET_ON_SAVE:
+    (state, {onSave}) => {
+      state.onSave = onSave
     },
 
 }
@@ -40,7 +62,5 @@ const mutations = {
 // System
 
 module.exports = {
-  initial,
-  handlers,
-  mutations,
+  storeManager: new StoreManager(initial, handlers, mutations),
 }

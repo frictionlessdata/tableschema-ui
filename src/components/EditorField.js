@@ -1,10 +1,17 @@
 const React = require('react')
+const find = require('lodash/find')
 const config = require('../config')
+const {storeManager} = require('../stores/editorSchema')
 
 
 // Components
 
-const EditorField = ({field}) => {
+const EditorField = storeManager.connect({
+
+  mapState: ({columns}, {columnId}) => ({column: findColumn(columns, columnId)}),
+  mapDispatch: [],
+
+})(({column}) => {
   return (
     <div className="field form-row">
 
@@ -18,7 +25,7 @@ const EditorField = ({field}) => {
             type="text"
             className="form-control field-name"
             placeholder="name"
-            value={field.name}
+            value={column.field.name}
           />
         </div>
       </div>
@@ -57,10 +64,16 @@ const EditorField = ({field}) => {
 
     </div>
   )
-}
+})
 
 
 // Helpers
+
+
+const findColumn = (columns, columnId) => {
+  return find(columns, column => column.id === columnId)
+}
+
 
 const getFieldTypes = () => {
   return Object.keys(config.FIELD_TYPES_AND_FORMATS)
