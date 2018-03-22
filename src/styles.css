@@ -25,3 +25,12 @@
 .tableschema-ui-editor .field-name  {
   font-weight: bold;
 }
+
+.tableschema-ui-editor .field-details .card {
+  margin-top: 1em;
+}
+
+.tableschema-ui-editor .field-details label {
+  font-size: 80%;
+  color: #555;
+}

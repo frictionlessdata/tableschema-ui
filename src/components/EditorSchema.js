@@ -44,7 +44,10 @@ const EditorSchemaConsumer = storeManager.connect({
           <button
             type="button"
             className="btn btn-light btn-lg btn-block field-add"
-            onClick={props.onAddFieldClick}
+            onClick={(ev) => {
+              ev.preventDefault()
+              props.onAddFieldClick()
+            }}
           >
             Add Field
           </button>
