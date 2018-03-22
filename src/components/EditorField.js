@@ -1,22 +1,28 @@
 const React = require('react')
 const find = require('lodash/find')
-const config = require('../config')
+const partial = require('lodash/partial')
 const {storeManager} = require('../stores/editorSchema')
+const config = require('../config')
 
 
 // Components
 
 const EditorField = storeManager.connect({
 
-  mapState: ({columns}, {columnId}) => ({column: findColumn(columns, columnId)}),
-  mapDispatch: [],
+  mapState: ({columns}, {columnId}) => ({
+    column: find(columns, column => column.id === columnId),
+  }),
+  mapDispatch: [
+    'onRemoveFieldClick',
+    'onFieldPropertyChange',
+  ],
 
-})(({column}) => {
+})((props) => {
   return (
     <div className="field form-row">
 
       {/* Name */}
-      <div className="col-md-3">
+      <div className="col-md-4">
         <div className="input-group">
           <div className="input-group-prepend">
             <div className="input-group-text">Name</div>
@@ -24,8 +30,10 @@ const EditorField = storeManager.connect({
           <input
             type="text"
             className="form-control field-name"
-            placeholder="name"
-            value={column.field.name}
+            defaultValue={props.column.field.name}
+            onBlur={(ev) =>
+              props.onFieldPropertyChange(props.column.id, 'name', ev.target.value)
+            }
           />
         </div>
       </div>
@@ -36,7 +44,12 @@ const EditorField = storeManager.connect({
           <div className="input-group-prepend">
             <div className="input-group-text">Type</div>
           </div>
-          <select className="form-control">
+          <select
+            className="form-control"
+            onChange={(ev) =>
+              props.onFieldPropertyChange(props.column.id, 'type', ev.target.value)
+            }
+          >
             {getFieldTypes().map(type => (
               <option key={type}>{type}</option>
             ))}
@@ -50,16 +63,26 @@ const EditorField = storeManager.connect({
           <div className="input-group-prepend">
             <div className="input-group-text">Format</div>
           </div>
-          <select className="form-control">
+          <select
+            className="form-control"
+            onChange={(ev) =>
+              props.onFieldPropertyChange(props.column.id, 'format', ev.target.value)
+            }
+          >
             <option>default</option>
           </select>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="col-md-3">
-        <div className="btn btn-warning">S</div>
-        <div className="btn btn-danger">X</div>
+      <div className="col-md-2">
+        <div className="btn btn-light btn-lg">Details</div>
+        <div
+          className="btn btn-light btn-lg"
+          onClick={partial(props.onRemoveFieldClick, props.column.id)}
+        >
+          Remove
+        </div>
       </div>
 
     </div>
@@ -68,11 +91,6 @@ const EditorField = storeManager.connect({
 
 
 // Helpers
-
-
-const findColumn = (columns, columnId) => {
-  return find(columns, column => column.id === columnId)
-}
 
 
 const getFieldTypes = () => {

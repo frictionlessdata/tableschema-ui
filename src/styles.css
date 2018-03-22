@@ -1,14 +1,8 @@
 .tableschema-ui-editor .controls {
-  padding: 0 0.5em;
 }
 
 .tableschema-ui-editor .field {
-  padding: 0.5em;
-}
-
-.tableschema-ui-editor .field:nth-child(even) {
-  background-color: #fafafa;
-  border-radius: 0.3em;
+  padding: 0.5em 0;
 }
 
 .tableschema-ui-editor .input-group-text {
@@ -17,6 +11,17 @@
   color: #aaa;
 }
 
-.tableschema-ui-editor .field .field-name  {
+.tableschema-ui-editor .btn-light  {
+  border: solid 1px #ddd;
+  background-color: #fafafa;
+  font-size: 80%;
+  color: #555;
+}
+
+.tableschema-ui-editor .btn-light:hover  {
+  background-color: #eee;
+}
+
+.tableschema-ui-editor .field-name  {
   font-weight: bold;
 }

@@ -25,22 +25,36 @@ const EditorSchema = ({source, schema, onSave}) => {
 const EditorSchemaConsumer = storeManager.connect({
 
   mapState: ['columns'],
-  mapDispatch: ['onSaveClick'],
+  mapDispatch: ['onSaveClick', 'onAddFieldClick'],
 
-})(({columns, onSaveClick}) => {
+})((props) => {
   return (
     <div className="tableschema-ui-editor">
 
       {/* Fields */}
       <div className="form-group fields">
-      {columns.map(column => (
-        <EditorField key={column.id} columnId={column.id} />
-      ))}
+
+        {/* List fields */}
+        {props.columns.map(column => (
+          <EditorField key={column.id} columnId={column.id} />
+        ))}
+
+        {/* Add field */}
+        <div className="field">
+          <button
+            type="button"
+            className="btn btn-light btn-lg btn-block field-add"
+            onClick={props.onAddFieldClick}
+          >
+            Add Field
+          </button>
+        </div>
+
       </div>
 
-      {/* Button */}
+      {/* Controls */}
       <div className="form-group controls">
-        <div className="btn btn-primary" onClick={onSaveClick}>
+        <div className="btn btn-primary" onClick={props.onSaveClick}>
           Save
         </div>
       </div>
