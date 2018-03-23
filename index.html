@@ -18,7 +18,12 @@
   <script src="/dist/tableschema-ui.js"></script>
   <script>
     const props = {
-      source: null,
+      source: [
+        ['id', 'name'],
+        [1, 'Alex'],
+        [2, 'John'],
+        [3, 'Paul'],
+      ],
       schema: {
         fields: [
           {name: "id", type: "integer"},
