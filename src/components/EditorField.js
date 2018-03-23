@@ -18,6 +18,12 @@ const EditorField = storeManager.connect({
   ],
 
 })((props) => {
+
+  // Prepare
+  const types = getFieldTypes()
+  const formats = getFieldFormats(props.column.field.type)
+
+  // Render
   return (
     <div className="field">
 
@@ -49,11 +55,12 @@ const EditorField = storeManager.connect({
             </div>
             <select
               className="form-control"
-              onChange={(ev) =>
+              onChange={(ev) => {
+                props.onFieldPropertyChange(props.column.id, 'format', 'default')
                 props.onFieldPropertyChange(props.column.id, 'type', ev.target.value)
-              }
+              }}
             >
-              {getFieldTypes().map(type => (
+              {types.map(type => (
                 <option key={type}>{type}</option>
               ))}
             </select>
@@ -66,14 +73,13 @@ const EditorField = storeManager.connect({
             <div className="input-group-prepend">
               <div className="input-group-text">Format</div>
             </div>
-            <select
-              className="form-control"
-              onChange={(ev) =>
+            <EditorFieldFormat
+              formats={formats}
+              format={props.column.field.format}
+              onChange={(ev) => {
                 props.onFieldPropertyChange(props.column.id, 'format', ev.target.value)
-              }
-            >
-              <option>default</option>
-            </select>
+              }}
+            />
           </div>
         </div>
 
@@ -142,9 +148,10 @@ const EditorField = storeManager.connect({
                   className="form-control"
                   id={`field-description-${props.column.id}`}
                   defaultValue={props.column.field.description}
-                  onBlur={(ev) =>
-                    props.onFieldPropertyChange(props.column.id, 'description', ev.target.value)
-                  }
+                  onBlur={(ev) => {
+                    const value = ev.target.value
+                    props.onFieldPropertyChange(props.column.id, 'description', value)
+                  }}
                 />
               </div>
 
@@ -156,7 +163,7 @@ const EditorField = storeManager.connect({
                 <label>
                   Data
                 </label>
-                <table class="table table-sm">
+                <table className="table table-sm">
                   <thead>
                     <tr>
                       <th>name</th>
@@ -180,11 +187,47 @@ const EditorField = storeManager.connect({
 })
 
 
+const EditorFieldFormat = ({formats, format, onChange}) => {
+
+  // Basic
+  if (!formats.includes('custom')) {
+    return (
+      <select
+        className="form-control"
+        value={format}
+        onChange={onChange}
+      >
+        {formats.map(format => (
+          <option key={format}>{format}</option>
+        ))}
+      </select>
+    )
+
+  // Custom
+  } else {
+    return (
+      <input
+        type="text"
+        className="form-control"
+        defaultValue={format}
+        onBlur={onChange}
+      />
+    )
+  }
+
+}
+
+
 // Helpers
 
 
 const getFieldTypes = () => {
   return Object.keys(config.FIELD_TYPES_AND_FORMATS)
+}
+
+
+const getFieldFormats = (type) => {
+  return config.FIELD_TYPES_AND_FORMATS[type] || []
 }
 
 
