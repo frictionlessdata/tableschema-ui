@@ -39,6 +39,11 @@ const webpackConfig = {
   plugins: [
     new webpack.EnvironmentPlugin({NODE_ENV, DEBUG}),
   ],
+  node: {
+    fs: 'empty',
+    http: 'empty',
+    https: 'empty',
+  },
 }
 
 
