@@ -2,6 +2,7 @@ const React = require('react')
 const {hot} = require('react-hot-loader')
 const {Provider} = require('react-redux')
 const {EditorField} = require('./EditorField')
+const {EditorFeedback} = require('./EditorFeedback')
 const {storeManager} = require('../stores/editorSchema')
 
 
@@ -30,6 +31,11 @@ const EditorSchemaConsumer = storeManager.connect({
 })((props) => {
   return (
     <div className="tableschema-ui-editor">
+
+      {/* Feedback */}
+      <EditorFeedback />
+
+      {/* Fields */}
       <div className="form-group fields">
 
         {/* List fields */}

@@ -11,10 +11,11 @@ class StoreManager {
 
   // Public
 
-  constructor(initial, handlers, mutations) {
+  constructor(initial, handlers, mutations, processor) {
     this.initial = initial
     this.handlers = handlers
     this.mutations = mutations
+    this.processor = processor
   }
 
   connect({mapState, mapDispatch}) {
@@ -36,7 +37,10 @@ class StoreManager {
     return (state, action) => {
       if (!state) return this.initial
       const mutation = this.mutations[action.type]
-      return mutation ? produce(state, draft => mutation(draft, action)) : state
+      return !mutation ? state : produce(state, draft => {
+        mutation(draft, action)
+        this.processor(draft)
+      })
     }
   }
 

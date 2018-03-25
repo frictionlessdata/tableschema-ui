@@ -6,7 +6,9 @@ const {StoreManager} = require('../store')
 // Initial
 
 const initial = {
-
+  feedback: false,
+  onChange: false,
+  columns: [],
 }
 
 
@@ -17,7 +19,7 @@ const handlers = {
   // EditorSchema
 
   onRender:
-    ({source, schema, onSave}) => (dispatch) => {
+    ({source, schema={}, onChange}) => (dispatch) => {
 
       // Load source
 
@@ -25,13 +27,12 @@ const handlers = {
 
       // Compose columns
       const columns = []
-      for (const field of schema.fields) {
+      for (const field of schema.fields || []) {
         columns.push({id: uuidv4(), field})
       }
 
       // Dispatch actions
-      dispatch({type: 'SET_COLUMNS', columns})
-      dispatch({type: 'SET_ON_SAVE', onSave})
+      dispatch({type: 'SET_AFTER_RENDER', columns, onChange})
 
     },
 
@@ -60,16 +61,12 @@ const handlers = {
 
 const mutations = {
 
-  // Init
+  // General
 
-  SET_COLUMNS:
-    (state, {columns}) => {
+  SET_AFTER_RENDER:
+    (state, {columns, onChange}) => {
       state.columns = columns
-    },
-
-  SET_ON_SAVE:
-    (state, {onSave}) => {
-      state.onSave = onSave
+      state.onChange = onChange
     },
 
   // Field
@@ -94,8 +91,24 @@ const mutations = {
 }
 
 
+// Processor
+
+const processor = (state) => {
+
+  // No fields
+  state.feedback = state.columns.length ? false : {
+    type: 'warning',
+    message: `
+      There are no fields at the moment.
+      Fields could be added using the "Add Field" button.
+    `
+  }
+
+}
+
+
 // System
 
 module.exports = {
-  storeManager: new StoreManager(initial, handlers, mutations),
+  storeManager: new StoreManager(initial, handlers, mutations, processor),
 }
