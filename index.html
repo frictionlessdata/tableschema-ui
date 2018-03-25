@@ -7,6 +7,44 @@
 
   <!-- Application -->
   <div class="container" style="padding: 1em">
+    <div id="ckan-side" style="opacity: 0.75; color: #777; border: solid 5px #eee; maring-bottom: 3em; padding: 2em; background-color: #fafafa; border-radius: 1em">
+      <form action="">
+        <h4>Demo CKAN side</h4>
+        <hr />
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="">File</label>
+              <div class="input-group">
+                <input class="custom-file-input" type="file" id="inputGroupFile01" placeholder="upload"/>
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                <input class="form-control" type="text" placeholder="Provide link"/>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="">Data Schema</label>
+              <div class="input-group">
+                <input class="custom-file-input" type="file" id="inputGroupFile02" placeholder="upload"/>
+                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                <div class="input-group">
+                  <input class="form-control" type="text" placeholder="Provide link"/>
+                  <div class="input-group-append">
+                    <button class="btn btn-light btn-block text-left" style="border: solid 1px #ddd"/>Create manually</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="">Output</label>
+          <pre style="width: 100%; min-height: 5em; background-color: white; border: solid 1px #ddd;"><code id="output"></code></pre>
+        </div>
+      </form>
+    </div>
+    <div id="separator" style="margin: 3em 0; border-top: solid 3px #eee;"></div>
     <div id="editor-schema"></div>
   </div>
 

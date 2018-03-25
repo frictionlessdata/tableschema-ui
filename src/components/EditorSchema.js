@@ -30,8 +30,6 @@ const EditorSchemaConsumer = storeManager.connect({
 })((props) => {
   return (
     <div className="tableschema-ui-editor">
-
-      {/* Fields */}
       <div className="form-group fields">
 
         {/* List fields */}
@@ -54,14 +52,6 @@ const EditorSchemaConsumer = storeManager.connect({
         </div>
 
       </div>
-
-      {/* Controls */}
-      <div className="form-group controls">
-        <div className="btn btn-primary" onClick={props.onSaveClick}>
-          Save
-        </div>
-      </div>
-
     </div>
   )
 })
