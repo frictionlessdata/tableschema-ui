@@ -28,8 +28,8 @@ const handlers = {
 
           // Compose columns
           const columns = []
-          for (const field of schema.fields || []) {
-            columns.push({id: uuidv4(), field})
+          for (const field of table.schema.fields || []) {
+            columns.push({id: uuidv4(), field: field.descriptor})
           }
 
           // Dispatch actions

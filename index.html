@@ -26,7 +26,7 @@
               <input class="custom-file-input" type="file" id="inputGroupFile02" placeholder="upload"/>
               <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
               <div class="input-group">
-                <input class="form-control" type="text" placeholder="Provide link"/>
+                <input id="schema-link" class="form-control" type="text" placeholder="Provide link"/>
                 <div class="input-group-append">
                   <button id="create-manually" class="btn btn-light btn-block text-left" style="border: solid 1px #ddd"/>Create manually</button>
                 </div>
@@ -58,10 +58,18 @@
     const element = document.getElementById('editor-schema')
     const onChange = schema => $('#output').html(JSON.stringify(schema, null, 2))
 
-    // Manually
-    $('#create-manually').click(() => {
-      tableschemaUI.render(component, {onChange}, element)
+    // Schema link
+    $('#schema-link').blur((ev) => {
+      const props = {onChange, schema: $(ev.target).val()}
+      tableschemaUI.render(component, props, element)
     })
+
+    // Schema manually
+    $('#create-manually').click(() => {
+      const props = {onChange}
+      tableschemaUI.render(component, props, element)
+    })
+
   </script>
 
 </body>
