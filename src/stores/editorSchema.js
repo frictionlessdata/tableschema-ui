@@ -73,8 +73,10 @@ const mutations = {
 
   ADD_FIELD:
     (state) => {
-      const field = {}
-      state.columns.push({id: uuidv4(), field})
+      const columnId = uuidv4()
+      const fieldName = `field${state.columns.length + 1}`
+      const field = {name: fieldName, type: 'string', format: 'default'}
+      state.columns.push({id: columnId, field})
     },
 
   REMOVE_FIELD:
