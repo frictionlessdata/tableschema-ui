@@ -7,7 +7,7 @@
 
   <!-- Application -->
   <div class="container" style="padding: 1em">
-    <div id="ckan-side" style="opacity: 0.75; color: #777; border: solid 5px #eee; maring-bottom: 3em; padding: 2em; background-color: #fafafa; border-radius: 1em">
+    <div id="ckan-side" style="opacity: 0.75; color: #777; border: solid 5px #eee; maring-bottom: 3em; padding: 2em; background-color: #fafafa; border-radius: 0.5em">
       <h4>Demo CKAN side</h4>
       <hr />
       <div class="row">
@@ -20,8 +20,6 @@
               <input class="form-control" type="text" placeholder="Provide link"/>
             </div>
           </div>
-        </div>
-        <div class="col">
           <div class="form-group">
             <label for="">Data Schema</label>
             <div class="input-group">
@@ -36,13 +34,16 @@
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <label for="">Output</label>
-        <pre style="width: 100%; min-height: 5em; background-color: white; border: solid 1px #ddd;"><code id="output"></code></pre>
+        <div class="col">
+          <label for="">Output</label>
+          <pre id="output" style="width: 100%; height: 14em; overflow:vertical-scroll; background-color: white; border: solid 1px #ddd;">
+            <code id="output">
+            </code>
+          </pre>
+        </div>
       </div>
     </div>
-    <div id="separator" style="margin: 2em 0; border-top: solid 1px #ddd;"></div>
+    <div id="separator" style="margin: 2em 0; border-top: dashed 1px #ddd;"></div>
     <div id="editor-schema"></div>
   </div>
 
@@ -55,11 +56,11 @@
   <script>
     const component = tableschemaUI.EditorSchema
     const element = document.getElementById('editor-schema')
+    const onChange = schema => $('#output').html(JSON.stringify(schema, null, 2))
 
     // Manually
     $('#create-manually').click(() => {
-      const props = {}
-      tableschemaUI.render(component, props, element)
+      tableschemaUI.render(component, {onChange}, element)
     })
   </script>
 

@@ -8,11 +8,11 @@ const {storeManager} = require('../stores/editorSchema')
 
 // Components
 
-const EditorSchema = ({source, schema, onSave}) => {
+const EditorSchema = ({source, schema, onChange}) => {
 
   // Create store
   const store = storeManager.createStore()
-  store.dispatch(storeManager.handlers.onRender({source, schema, onSave}))
+  store.dispatch(storeManager.handlers.onRender({source, schema, onChange}))
 
   // Render
   return (

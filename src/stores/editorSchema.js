@@ -36,12 +36,6 @@ const handlers = {
 
     },
 
-  onSaveClick:
-    () => (dispatch, getState) => {
-      const state = getState()
-      const schema = {fields: state.columns.map(column => column.field)}
-      state.onSave(schema)
-    },
 
   onAddFieldClick:
     () => ({type: 'ADD_FIELD'}),
@@ -64,9 +58,9 @@ const mutations = {
   // General
 
   SET_AFTER_RENDER:
-    (state, {columns, onChange}) => {
-      state.columns = columns
-      state.onChange = onChange
+    (state, action) => {
+      state.columns = action.columns
+      state.onChange = action.onChange
     },
 
   // Field
@@ -97,13 +91,19 @@ const mutations = {
 
 const processor = (state) => {
 
-  // No fields
+  // Feedback: no fields
   state.feedback = state.columns.length ? false : {
     type: 'warning',
     message: `
       There are no fields at the moment.
       Fields could be added using the "Add Field" button.
     `
+  }
+
+  // Call onChange
+  if (state.onChange) {
+    const schema = {fields: state.columns.map(column => column.field)}
+    state.onChange(schema)
   }
 
 }
