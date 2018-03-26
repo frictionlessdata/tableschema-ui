@@ -15,20 +15,21 @@
           <div class="form-group">
             <label for="">File</label>
             <div class="input-group">
-              <input class="custom-file-input" type="file" id="inputGroupFile01" placeholder="upload"/>
-              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-              <input class="form-control" type="text" placeholder="Provide link"/>
+              <label class="custom-file-label" for="inputGroupFile01">Upload file</label>
+              <input id="source-file" class="custom-file-input" type="file" id="inputGroupFile01" placeholder="upload"/>
+              <input id="source-link" class="form-control" type="text" placeholder="Provide link"/>
             </div>
           </div>
           <div class="form-group">
             <label for="">Data Schema</label>
             <div class="input-group">
               <input class="custom-file-input" type="file" id="inputGroupFile02" placeholder="upload"/>
-              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+              <label id="schema-file" class="custom-file-label" for="inputGroupFile02">Upload file</label>
               <div class="input-group">
                 <input id="schema-link" class="form-control" type="text" placeholder="Provide link"/>
+                <input id="schema-json" class="form-control" type="text" placeholder="Provide JSON"/>
                 <div class="input-group-append">
-                  <button id="create-manually" class="btn btn-light btn-block text-left" style="border: solid 1px #ddd"/>Create manually</button>
+                  <button id="schema-edit" class="btn">Edit</button>
                 </div>
               </div>
             </div>
@@ -36,9 +37,7 @@
         </div>
         <div class="col-md">
           <label for="">Output</label>
-          <pre id="output" style="width: 100%; height: 14em; overflow:vertical-scroll; background-color: white; border: solid 1px #ddd;">
-            <code id="output">
-            </code>
+          <pre id="schema-output" style="width: 100%; height: 14em; overflow:vertical-scroll; background-color: white; border: solid 1px #ddd;">
           </pre>
         </div>
       </div>
@@ -56,20 +55,12 @@
   <script>
     const component = tableschemaUI.EditorSchema
     const element = document.getElementById('editor-schema')
-    const onChange = schema => $('#output').html(JSON.stringify(schema, null, 2))
-
-    // Schema link
-    $('#schema-link').blur((ev) => {
-      const props = {onChange, schema: $(ev.target).val()}
-      tableschemaUI.render(component, props, element)
+    $('#schema-edit').click(() => {
+      const source = ($('#source-file').prop('files') || [])[0] || $('#source-link').val()
+      const schema = ($('#schema-file').prop('files') || [])[0] || $('#schema-link').val() || JSON.parse($('#schema-json').val())
+      const onChange = schema => $('#schema-output').html(JSON.stringify(schema, null, 2))
+      tableschemaUI.render(component, {source, schema, onChange}, element)
     })
-
-    // Schema manually
-    $('#create-manually').click(() => {
-      const props = {onChange}
-      tableschemaUI.render(component, props, element)
-    })
-
   </script>
 
 </body>

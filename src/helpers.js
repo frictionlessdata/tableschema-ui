@@ -1,22 +1,22 @@
 const uuidv4 = require('uuid/v4')
-const {Table} = require('tableschema')
+const {infer} = require('tableschema')
 
 
 // Module API
 
 const composeColumns = async (source, schema) => {
 
-  // Defaults
-  source = source || []
-  schema = schema || {}
+  // TODO: support File API
 
-  // Load table
-  const table = await Table.load(source, schema)
+  // Get schema
+  if (!schema) {
+    schema = source ? await infer(source) : {}
+  }
 
   // Compose columns
   const columns = []
-  for (const field of table.schema.fields || []) {
-    columns.push({id: uuidv4(), field: field.descriptor})
+  for (const field of schema.fields || []) {
+    columns.push({id: uuidv4(), field})
   }
 
   return columns
