@@ -159,23 +159,23 @@ const EditorField = storeManager.connect({
 
             {/* Sample data */}
             <div className="col-md-8">
-              <div className="form-group">
-                <label>
-                  Data
-                </label>
-                <table className="table table-sm">
-                  <thead>
-                    <tr>
-                      <th>name</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>alex</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {!!props.column.values.length &&
+                <div className="form-group">
+                  <label>
+                    Data
+                  </label>
+                  <table className="table table-sm">
+                    <thead>
+                      <tr><th>{props.column.field.name}</th></tr>
+                    </thead>
+                    <tbody>
+                      {props.column.values.map(value => (
+                        <tr><td>{value}</td></tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              }
             </div>
 
           </div>
