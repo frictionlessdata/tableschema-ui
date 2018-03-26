@@ -1,7 +1,7 @@
 const uuidv4 = require('uuid/v4')
 const find = require('lodash/find')
-const {Table} = require('tableschema')
 const {StoreManager} = require('../store')
+const helpers = require('../helpers')
 
 
 // Initial
@@ -20,23 +20,12 @@ const handlers = {
   // EditorSchema
 
   onRender:
-    ({source=[], schema={}, onChange}) => (dispatch) => {
-
-      // Load table
-      Table.load(source, {schema})
-        .then(table => {
-
-          // Compose columns
-          const columns = []
-          for (const field of table.schema.fields || []) {
-            columns.push({id: uuidv4(), field: field.descriptor})
-          }
-
-          // Dispatch actions
-          dispatch({type: 'SET_AFTER_RENDER', columns, onChange})
-
-        })
-
+    ({source, schema, onChange}) => (dispatch) => {
+      helpers.composeColumns(source, schema).then(columns => {
+        dispatch({type: 'SET_AFTER_RENDER', columns, onChange})
+      }).catch(error => {
+        console.log(error)
+      })
     },
 
 
@@ -105,7 +94,7 @@ const processor = (state) => {
 
   // Call onChange
   if (state.onChange) {
-    const schema = {fields: state.columns.map(column => column.field)}
+    const schema = helpers.composeSchema(state.columns)
     state.onChange(schema)
   }
 
