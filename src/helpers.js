@@ -1,10 +1,11 @@
 const uuidv4 = require('uuid/v4')
+const omit = require('lodash/omit')
 const {infer} = require('tableschema')
 
 
 // Module API
 
-const composeColumns = async (source, schema) => {
+const importSchema = async (source, schema) => {
 
   // TODO: support File API
 
@@ -19,18 +20,24 @@ const composeColumns = async (source, schema) => {
     columns.push({id: uuidv4(), field})
   }
 
-  return columns
+  // Compose metadata
+  const metadata = omit(schema, 'fields')
+
+  return {columns, metadata}
 }
 
 
-const composeSchema = (columns) => {
-  return {fields: columns.map(column => column.field)}
+const exportSchema = (columns, metadata) => {
+  return {
+    fields: columns.map(column => column.field),
+    ...metadata,
+  }
 }
 
 
 // System
 
 module.exports = {
-  composeColumns,
-  composeSchema,
+  importSchema,
+  exportSchema,
 }

@@ -21,8 +21,8 @@ const handlers = {
 
   onRender:
     ({source, schema, onChange}) => (dispatch) => {
-      helpers.composeColumns(source, schema).then(columns => {
-        dispatch({type: 'SET_AFTER_RENDER', columns, onChange})
+      helpers.importSchema(source, schema).then(({columns, metadata}) => {
+        dispatch({type: 'SET_AFTER_RENDER', columns, metadata, onChange})
       }).catch(error => {
         console.log(error)
       })
@@ -52,6 +52,7 @@ const mutations = {
   SET_AFTER_RENDER:
     (state, action) => {
       state.columns = action.columns
+      state.metadata = action.metadata
       state.onChange = action.onChange
     },
 
@@ -94,7 +95,7 @@ const processor = (state) => {
 
   // Call onChange
   if (state.onChange) {
-    const schema = helpers.composeSchema(state.columns)
+    const schema = helpers.exportSchema(state.columns, state.metadata)
     state.onChange(schema)
   }
 
