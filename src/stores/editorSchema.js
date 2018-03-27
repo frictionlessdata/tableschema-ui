@@ -1,4 +1,3 @@
-const uuidv4 = require('uuid/v4')
 const find = require('lodash/find')
 const {StoreManager} = require('../store')
 const helpers = require('../helpers')
@@ -61,7 +60,7 @@ const mutations = {
       const columnId = uuidv4()
       const fieldName = `field${state.columns.length + 1}`
       const field = {name: fieldName, type: 'string', format: 'default'}
-      state.columns.push({id: columnId, field, values: []})
+      state.columns.push(helpers.createColumn(field))
     },
 
   REMOVE_FIELD:
