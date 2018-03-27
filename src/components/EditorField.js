@@ -1,9 +1,7 @@
 const React = require('react')
 const find = require('lodash/find')
-const partial = require('lodash/partial')
 const {storeManager} = require('../stores/editorSchema')
 const helpers = require('../helpers')
-const config = require('../config')
 
 
 // Components

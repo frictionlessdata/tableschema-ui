@@ -3,6 +3,7 @@ const pick = require('lodash/pick')
 const reactRedux = require('react-redux')
 const thunk = require('redux-thunk').default
 const produce = require('immer').default
+const config = require('./config')
 
 
 // Module API
@@ -28,7 +29,9 @@ class StoreManager {
   createStore() {
     return redux.createStore(
       this.createReducer(),
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+      config.IS_BROWSER
+        ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        : null,
       redux.applyMiddleware(thunk)
     )
   }

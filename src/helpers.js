@@ -1,7 +1,7 @@
 const uuidv4 = require('uuid/v4')
 const omit = require('lodash/omit')
 const {Readable} = require('stream')
-const {Table, infer} = require('tableschema')
+const {Table} = require('tableschema')
 const config = require('./config')
 
 

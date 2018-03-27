@@ -1,5 +1,6 @@
 // Module API
 
+exports.IS_BROWSER = typeof window !== 'undefined'
 exports.FIELD_TYPES_AND_FORMATS = {
   string: ['default', 'email', 'uri', 'binary', 'uuid'],
   number: ['default'],
