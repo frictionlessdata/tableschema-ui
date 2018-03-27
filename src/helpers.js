@@ -2,6 +2,7 @@ const uuidv4 = require('uuid/v4')
 const omit = require('lodash/omit')
 const {Readable} = require('stream')
 const {Table, infer} = require('tableschema')
+const config = require('./config')
 
 
 // Module API
@@ -19,7 +20,8 @@ const importSchema = async (source, schema) => {
   const columns = []
   if (table.schema) {
     for (const [index, field] of table.schema.descriptor.fields.entries()) {
-      columns.push(createColumn(field, rows.map(row => row[index])))
+      const values = rows.map(row => row[index]).filter(value => value !== undefined)
+      columns.push(createColumn(columns, field, values))
     }
   }
 
@@ -38,8 +40,22 @@ const exportSchema = (columns, metadata) => {
 }
 
 
-const createColumn = (field, values=[]) => {
-  return {id: uuidv4(), field, values}
+const createColumn = (columns, field={}, values=[]) => {
+  const formats = getFieldFormats(field.type)
+  const name = field.name || `field${columns.length + 1}`
+  const type = formats.length ? field.type : 'string'
+  const format = formats.includes(field.format) ? field.format : 'default'
+  return {id: uuidv4(), field: {...field, name, type, format}, values}
+}
+
+
+const getFieldTypes = () => {
+  return Object.keys(config.FIELD_TYPES_AND_FORMATS)
+}
+
+
+const getFieldFormats = (type) => {
+  return config.FIELD_TYPES_AND_FORMATS[type] || []
 }
 
 
@@ -105,4 +121,6 @@ module.exports = {
   importSchema,
   exportSchema,
   createColumn,
+  getFieldTypes,
+  getFieldFormats,
 }

@@ -2,6 +2,7 @@ const React = require('react')
 const find = require('lodash/find')
 const partial = require('lodash/partial')
 const {storeManager} = require('../stores/editorSchema')
+const helpers = require('../helpers')
 const config = require('../config')
 
 
@@ -20,8 +21,8 @@ const EditorField = storeManager.connect({
 })((props) => {
 
   // Prepare
-  const types = getFieldTypes()
-  const formats = getFieldFormats(props.column.field.type)
+  const types = helpers.getFieldTypes()
+  const formats = helpers.getFieldFormats(props.column.field.type)
 
   // Render
   return (
@@ -55,6 +56,7 @@ const EditorField = storeManager.connect({
             </div>
             <select
               className="form-control"
+              value={props.column.field.type}
               onChange={(ev) => {
                 props.onFieldPropertyChange(props.column.id, 'format', 'default')
                 props.onFieldPropertyChange(props.column.id, 'type', ev.target.value)
@@ -215,19 +217,6 @@ const EditorFieldFormat = ({formats, format, onChange}) => {
     )
   }
 
-}
-
-
-// Helpers
-
-
-const getFieldTypes = () => {
-  return Object.keys(config.FIELD_TYPES_AND_FORMATS)
-}
-
-
-const getFieldFormats = (type) => {
-  return config.FIELD_TYPES_AND_FORMATS[type] || []
 }
 
 
