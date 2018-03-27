@@ -2,6 +2,7 @@ const React = require('react')
 const {hot} = require('react-hot-loader')
 const {Provider} = require('react-redux')
 const {EditorField} = require('./EditorField')
+const {EditorPreview} = require('./EditorPreview')
 const {EditorFeedback} = require('./EditorFeedback')
 const {storeManager} = require('../stores/editorSchema')
 
@@ -32,32 +33,86 @@ const EditorSchemaConsumer = storeManager.connect({
   return (
     <div className="tableschema-ui-editor">
 
-      {/* Feedback */}
+      {/* Tab navigation */}
+      <ul className="nav nav-pills" role="tablist">
+        <li>
+          <h2 class="mr-3">Schema Editor</h2>
+        </li>
+        <li className="nav-item">
+          <a
+            className="nav-link active"
+            data-toggle="tab"
+            href="#schema-editor-fields"
+            role="tab"
+            aria-controls="schema-editor-fields"
+            aria-selected="true"
+          >
+            Fields
+          </a>
+        </li>
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            data-toggle="tab"
+            href="#schema-editor-preview"
+            role="tab"
+            aria-controls="schema-editor-preview"
+            aria-selected="false"
+          >
+            Preview
+          </a>
+        </li>
+      </ul>
+
+      <hr />
       <EditorFeedback />
 
-      {/* Fields */}
-      <div className="form-group fields">
+      {/* Tab contentes */}
+      <div className="tab-content">
 
-        {/* List fields */}
-        {props.columns.map(column => (
-          <EditorField key={column.id} columnId={column.id} />
-        ))}
+        {/* Fields */}
+        <div
+          className="tab-pane fade show active"
+          id="schema-editor-fields"
+          role="tabpanel"
+          aria-labelledby="home-tab"
+        >
+          <div className="form-group fields">
 
-        {/* Add field */}
-        <div className="field">
-          <button
-            type="button"
-            className="btn btn-light btn-lg btn-block field-add"
-            onClick={(ev) => {
-              ev.preventDefault()
-              props.onAddFieldClick()
-            }}
-          >
-            Add Field
-          </button>
+            {/* List fields */}
+            {props.columns.map(column => (
+              <EditorField key={column.id} columnId={column.id} />
+            ))}
+
+            {/* Add field */}
+            <div className="field">
+              <button
+                type="button"
+                className="btn btn-light btn-lg btn-block field-add"
+                onClick={(ev) => {
+                  ev.preventDefault()
+                  props.onAddFieldClick()
+                }}
+              >
+                Add Field
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Preview */}
+        <div
+          className="tab-pane fade"
+          id="schema-editor-preview"
+          role="tabpanel"
+          aria-labelledby="profile-tab"
+        >
+          <EditorPreview />
         </div>
 
       </div>
+
     </div>
   )
 })

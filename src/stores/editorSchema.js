@@ -9,6 +9,7 @@ const initial = {
   feedback: false,
   onChange: false,
   columns: [],
+  metadata: {},
 }
 
 
@@ -77,15 +78,6 @@ const mutations = {
 // Processor
 
 const processor = (state) => {
-
-  // Feedback: no fields
-  state.feedback = state.columns.length ? false : {
-    type: 'warning',
-    message: `
-      There are no fields at the moment.
-      Fields could be added using the "Add Field" button.
-    `
-  }
 
   // Call onChange
   if (state.onChange) {
