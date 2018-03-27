@@ -21,13 +21,11 @@ const handlers = {
 
   onRender:
     ({source, schema, onChange}) => (dispatch) => {
-      helpers.importSchema(source, schema).then(({columns, metadata}) => {
+      dispatch(async () => {
+        const {columns, metadata} = await helpers.importSchema(source, schema)
         dispatch({type: 'SET_AFTER_RENDER', columns, metadata, onChange})
-      }).catch(error => {
-        console.log(error)
       })
     },
-
 
   onAddFieldClick:
     () => ({type: 'ADD_FIELD'}),
