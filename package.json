@@ -1,6 +1,6 @@
 {
   "name": "tableschema-ui",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "license": "MIT",
   "author": "OKI",
   "description": "UI components for tableschema",
@@ -31,7 +31,7 @@
     "profile:prod": "NODE_ENV=production npm run profile",
     "test": "npm run test:node && npm run test:browser",
     "test:node": "NODE_ENV=testing nyc mocha",
-    "test:browser": "NODE_ENV=testing karma start"
+    "test:browser": "echo 'Browser tests are disabled!' || NODE_ENV=testing karma start"
   },
   "dependencies": {
     "classnames": "^2.2.5",
