@@ -26,7 +26,7 @@ const handlers = {
         try {
           const {columns, metadata} = await helpers.importSchema(source, schema)
           dispatch({type: 'SET_LOAD_SUCCESS', columns, metadata, onSave})
-        } catch(error) {
+        } catch (error) {
           dispatch({type: 'SET_LOAD_ERROR', error, onSave})
         }
       })
@@ -103,8 +103,8 @@ const processor = (state) => {
   // Loading error
   if (state.error) {
     state.feedback = {
-      'type': 'danger',
-      'message': 'Can\'t load and parse data source or data schema. Please try again'
+      type: 'danger',
+      message: 'Can\'t load and parse data source or data schema. Please try again'
     }
   }
 

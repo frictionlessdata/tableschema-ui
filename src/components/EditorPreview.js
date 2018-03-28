@@ -1,5 +1,4 @@
 const React = require('react')
-const classNames = require('classnames')
 const {storeManager} = require('../stores/editorSchema')
 const helpers = require('../helpers')
 
