@@ -108,10 +108,8 @@ const readFile = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
     reader.readAsText(file.slice(0, 65536))
-    reader.onload = () => {
-      if (reader.error) reject(error)
-      resolve(reader.result)
-    }
+    reader.onload = () => resolve(reader.result)
+    reader.onerror = () => reject(reader.error)
   })
 }
 
