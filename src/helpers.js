@@ -2,6 +2,7 @@ const uuidv4 = require('uuid/v4')
 const omit = require('lodash/omit')
 const {Readable} = require('stream')
 const {Table} = require('tableschema')
+const LineNavigator = require('line-navigator')
 const config = require('./config')
 
 
@@ -105,12 +106,12 @@ const prepareTableOptions = async (schema) => {
 
 
 const readFile = (file) => {
-  return new Promise((resolve) => {
-    const reader = new FileReader()
-    reader.readAsText(file)
-    reader.onload = () => {
-      resolve(reader.result)
-    }
+  return new Promise((resolve, reject) => {
+    const navigator = new LineNavigator(file)
+    navigator.readLines(0, 1000, (err, index, lines) => {
+      if (err) reject(err)
+      resolve(lines.join('\n'))
+    })
   })
 }
 
