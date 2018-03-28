@@ -7,6 +7,7 @@ const {storeManager} = require('../stores/editorSchema')
 
 const EditorFeedback = storeManager.connect({
 
+  name: 'EditorFeedback',
   mapState: ['feedback'],
   mapDispatch: [],
 

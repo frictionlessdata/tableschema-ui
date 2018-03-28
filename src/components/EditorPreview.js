@@ -8,6 +8,7 @@ const helpers = require('../helpers')
 
 const EditorPreview = storeManager.connect({
 
+  name: 'EditorPreview',
   mapState: ['columns', 'metadata'],
   mapDispatch: [],
 

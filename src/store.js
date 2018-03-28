@@ -19,11 +19,16 @@ class StoreManager {
     this.processor = processor
   }
 
-  connect({mapState, mapDispatch}) {
-    return (component) => reactRedux.connect(
-      mapState instanceof Array ? (state) => pick(state, mapState) : mapState,
-      mapDispatch instanceof Array ? pick(this.handlers, mapDispatch) : mapDispatch
-    )(component)
+  connect({name, mapState, mapDispatch}) {
+    return (component) => {
+      component.displayName = `${name}Inner`
+      const wrapper = reactRedux.connect(
+        mapState instanceof Array ? (state) => pick(state, mapState) : mapState,
+        mapDispatch instanceof Array ? pick(this.handlers, mapDispatch) : mapDispatch
+      )(component)
+      wrapper.displayName = name
+      return wrapper
+    }
   }
 
   createStore() {

@@ -26,6 +26,7 @@ const EditorSchema = ({source, schema, onSave}) => {
 
 const EditorSchemaConsumer = storeManager.connect({
 
+  name: 'EditorSchemaConsumer',
   mapState: ['columns', 'error'],
   mapDispatch: ['onSaveClick', 'onAddFieldClick'],
 

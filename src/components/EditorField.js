@@ -8,6 +8,7 @@ const helpers = require('../helpers')
 
 const EditorField = storeManager.connect({
 
+  name: 'EditorField',
   mapState: ({columns}, {columnId}) => ({
     column: find(columns, column => column.id === columnId),
   }),
