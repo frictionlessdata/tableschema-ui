@@ -41,21 +41,21 @@ const EditorSchemaConsumer = storeManager.connect({
           <h2 className="mr-4">Schema Editor</h2>
         </li>
 
-        {/* Edit */}
-        {!props.error &&
-          <li className="nav-item">
-            <a
-              className="nav-link active"
-              data-toggle="tab"
-              href="#schema-editor-fields"
-              role="tab"
-              aria-controls="schema-editor-fields"
-              aria-selected="true"
-            >
-              <small>1.</small> Edit
-            </a>
-          </li>
-        }
+        {/* Edit/Error */}
+        <li className="nav-item">
+          <a
+            className="nav-link active"
+            data-toggle="tab"
+            href="#schema-editor-fields"
+            role="tab"
+            aria-controls="schema-editor-fields"
+            aria-selected="true"
+          >
+            {!props.error
+              ? <span><small>1.</small> Edit</span>
+              : <span>Error</span>}
+          </a>
+        </li>
 
         {/* Preview */}
         {!props.error &&
