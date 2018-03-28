@@ -6,6 +6,7 @@
   background-color: #fafafa;
   font-size: 80%;
   color: #aaa;
+  width: 5em;
 }
 
 .tableschema-ui-editor .btn-light  {
@@ -37,10 +38,21 @@
 }
 
 .tableschema-ui-editor .button-details {
-  margin-left: 1em;
+  width: 6em;
 }
 
 .tableschema-ui-editor .button-remove {
-  color: #333;
-  float: right;
+  width: 6em;
 }
+
+@media (min-width: 768px) {
+  .tableschema-ui-editor .button-details {
+    margin-left: 1em;
+  }
+
+  .tableschema-ui-editor .button-remove {
+    color: #333;
+    float: right;
+  }
+}
+
