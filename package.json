@@ -36,7 +36,6 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "immer": "^1.2.0",
-    "line-navigator": "^2.1.6",
     "lodash": "^4.17.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
