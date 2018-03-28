@@ -9,11 +9,11 @@ const {storeManager} = require('../stores/editorSchema')
 
 // Components
 
-const EditorSchema = ({source, schema, onChange}) => {
+const EditorSchema = ({source, schema, onSave}) => {
 
   // Create store
   const store = storeManager.createStore()
-  store.dispatch(storeManager.handlers.onRender({source, schema, onChange}))
+  store.dispatch(storeManager.handlers.onRender({source, schema, onSave}))
 
   // Render
   return (
@@ -35,9 +35,13 @@ const EditorSchemaConsumer = storeManager.connect({
 
       {/* Tab navigation */}
       <ul className="nav nav-pills" role="tablist">
+
+        {/* Title */}
         <li>
-          <h2 class="mr-3">Schema Editor</h2>
+          <h2 className="mr-4">Schema Editor</h2>
         </li>
+
+        {/* Edit */}
         <li className="nav-item">
           <a
             className="nav-link active"
@@ -47,9 +51,11 @@ const EditorSchemaConsumer = storeManager.connect({
             aria-controls="schema-editor-fields"
             aria-selected="true"
           >
-            Fields
+            <small>1.</small> Edit
           </a>
         </li>
+
+        {/* Preview */}
         <li className="nav-item">
           <a
             className="nav-link"
@@ -59,9 +65,26 @@ const EditorSchemaConsumer = storeManager.connect({
             aria-controls="schema-editor-preview"
             aria-selected="false"
           >
-            Preview
+            <small>2.</small> Preview
           </a>
         </li>
+
+        {/* Save */}
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            href="#"
+            role="tab"
+            aria-selected="false"
+            onClick={(ev) => {
+              ev.preventDefault()
+              props.onSaveClick()
+            }}
+          >
+            <small>3.</small> Save
+          </a>
+        </li>
+
       </ul>
 
       <hr />

@@ -35,3 +35,12 @@
 .tableschema-ui-editor .preview {
   color: #333;
 }
+
+.tableschema-ui-editor .button-details {
+  margin-left: 1em;
+}
+
+.tableschema-ui-editor .button-remove {
+  color: #333;
+  float: right;
+}

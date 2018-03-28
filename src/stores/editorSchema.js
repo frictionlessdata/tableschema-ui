@@ -6,10 +6,10 @@ const helpers = require('../helpers')
 // Initial
 
 const initial = {
-  feedback: false,
-  onChange: false,
   columns: [],
   metadata: {},
+  feedback: false,
+  onSave: false,
 }
 
 
@@ -20,11 +20,20 @@ const handlers = {
   // EditorSchema
 
   onRender:
-    ({source, schema, onChange}) => (dispatch) => {
+    ({source, schema, onSave}) => (dispatch) => {
       dispatch(async () => {
         const {columns, metadata} = await helpers.importSchema(source, schema)
-        dispatch({type: 'SET_AFTER_RENDER', columns, metadata, onChange})
+        dispatch({type: 'SET_AFTER_RENDER', columns, metadata, onSave})
       })
+    },
+
+  onSaveClick:
+    () => (dispatch, getState) => {
+      const state = getState()
+      if (state.onSave) {
+        const schema = helpers.exportSchema(state.columns, state.metadata)
+        state.onSave(schema)
+      }
     },
 
   onAddFieldClick:
@@ -51,7 +60,7 @@ const mutations = {
     (state, action) => {
       state.columns = action.columns
       state.metadata = action.metadata
-      state.onChange = action.onChange
+      state.onSave = action.onSave
     },
 
   // Field
@@ -78,13 +87,6 @@ const mutations = {
 // Processor
 
 const processor = (state) => {
-
-  // Call onChange
-  if (state.onChange) {
-    const schema = helpers.exportSchema(state.columns, state.metadata)
-    state.onChange(schema)
-  }
-
 }
 
 

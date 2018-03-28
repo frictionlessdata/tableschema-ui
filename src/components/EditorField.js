@@ -89,7 +89,7 @@ const EditorField = storeManager.connect({
           {/* Details */}
           <button
             type="button"
-            className="btn btn-light btn-lg"
+            className="btn btn-light btn-lg button-details"
             data-toggle="collapse"
             data-target={`#field-details-${props.column.id}`}
             aria-expanded="false"
@@ -101,7 +101,7 @@ const EditorField = storeManager.connect({
           {/* Remove */}
           <button
             type="button"
-            className="btn btn-light btn-lg"
+            className="btn btn-light btn-lg button-remove"
             onClick={(ev) => {
               ev.preventDefault()
               props.onRemoveFieldClick(props.column.id)
