@@ -8,8 +8,9 @@ const helpers = require('../helpers')
 const initial = {
   columns: [],
   metadata: {},
-  feedback: false,
-  onSave: false,
+  feedback: null,
+  onSave: null,
+  error: null,
 }
 
 
@@ -22,8 +23,12 @@ const handlers = {
   onRender:
     ({source, schema, onSave}) => (dispatch) => {
       dispatch(async () => {
-        const {columns, metadata} = await helpers.importSchema(source, schema)
-        dispatch({type: 'SET_AFTER_RENDER', columns, metadata, onSave})
+        try {
+          const {columns, metadata} = await helpers.importSchema(source, schema)
+          dispatch({type: 'SET_LOAD_SUCCESS', columns, metadata, onSave})
+        } catch(error) {
+          dispatch({type: 'SET_LOAD_ERROR', error, onSave})
+        }
       })
     },
 
@@ -32,7 +37,7 @@ const handlers = {
       const state = getState()
       if (state.onSave) {
         const schema = helpers.exportSchema(state.columns, state.metadata)
-        state.onSave(schema)
+        state.onSave(schema, state.error)
       }
     },
 
@@ -56,11 +61,17 @@ const mutations = {
 
   // General
 
-  SET_AFTER_RENDER:
-    (state, action) => {
-      state.columns = action.columns
-      state.metadata = action.metadata
-      state.onSave = action.onSave
+  SET_LOAD_SUCCESS:
+    (state, {columns, metadata, onSave}) => {
+      state.columns = columns
+      state.metadata = metadata
+      state.onSave = onSave
+    },
+
+  SET_LOAD_ERROR:
+    (state, {error, onSave}) => {
+      state.error = error
+      state.onSave = onSave
     },
 
   // Field
@@ -87,6 +98,16 @@ const mutations = {
 // Processor
 
 const processor = (state) => {
+  state.feedback = null
+
+  // Loading error
+  if (state.error) {
+    state.feedback = {
+      'type': 'danger',
+      'message': 'Can\'t load and parse data source or data schema. Please try again'
+    }
+  }
+
 }
 
 

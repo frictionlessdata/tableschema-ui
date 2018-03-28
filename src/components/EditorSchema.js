@@ -26,7 +26,7 @@ const EditorSchema = ({source, schema, onSave}) => {
 
 const EditorSchemaConsumer = storeManager.connect({
 
-  mapState: ['columns'],
+  mapState: ['columns', 'error'],
   mapDispatch: ['onSaveClick', 'onAddFieldClick'],
 
 })((props) => {
@@ -42,34 +42,38 @@ const EditorSchemaConsumer = storeManager.connect({
         </li>
 
         {/* Edit */}
-        <li className="nav-item">
-          <a
-            className="nav-link active"
-            data-toggle="tab"
-            href="#schema-editor-fields"
-            role="tab"
-            aria-controls="schema-editor-fields"
-            aria-selected="true"
-          >
-            <small>1.</small> Edit
-          </a>
-        </li>
+        {!props.error &&
+          <li className="nav-item">
+            <a
+              className="nav-link active"
+              data-toggle="tab"
+              href="#schema-editor-fields"
+              role="tab"
+              aria-controls="schema-editor-fields"
+              aria-selected="true"
+            >
+              <small>1.</small> Edit
+            </a>
+          </li>
+        }
 
         {/* Preview */}
-        <li className="nav-item">
-          <a
-            className="nav-link"
-            data-toggle="tab"
-            href="#schema-editor-preview"
-            role="tab"
-            aria-controls="schema-editor-preview"
-            aria-selected="false"
-          >
-            <small>2.</small> Preview
-          </a>
-        </li>
+        {!props.error &&
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              data-toggle="tab"
+              href="#schema-editor-preview"
+              role="tab"
+              aria-controls="schema-editor-preview"
+              aria-selected="false"
+            >
+              <small>2.</small> Preview
+            </a>
+          </li>
+        }
 
-        {/* Save */}
+        {/* Save/Close */}
         <li className="nav-item">
           <a
             className="nav-link"
@@ -81,60 +85,66 @@ const EditorSchemaConsumer = storeManager.connect({
               props.onSaveClick()
             }}
           >
-            <small>3.</small> Save
+            {!props.error
+              ? <span><small>3.</small> Save</span>
+              : <span>Close</span>}
           </a>
         </li>
 
       </ul>
 
       <hr />
+
+      {/* Feedback */}
       <EditorFeedback />
 
-      {/* Tab contentes */}
-      <div className="tab-content">
+      {/* Tab contents */}
+      {!props.error &&
+        <div className="tab-content">
 
-        {/* Fields */}
-        <div
-          className="tab-pane fade show active"
-          id="schema-editor-fields"
-          role="tabpanel"
-          aria-labelledby="home-tab"
-        >
-          <div className="form-group fields">
+          {/* Fields */}
+          <div
+            className="tab-pane fade show active"
+            id="schema-editor-fields"
+            role="tabpanel"
+            aria-labelledby="home-tab"
+          >
+            <div className="form-group fields">
 
-            {/* List fields */}
-            {props.columns.map(column => (
-              <EditorField key={column.id} columnId={column.id} />
-            ))}
+              {/* List fields */}
+              {props.columns.map(column => (
+                <EditorField key={column.id} columnId={column.id} />
+              ))}
 
-            {/* Add field */}
-            <div className="field">
-              <button
-                type="button"
-                className="btn btn-light btn-lg btn-block field-add"
-                onClick={(ev) => {
-                  ev.preventDefault()
-                  props.onAddFieldClick()
-                }}
-              >
-                Add Field
-              </button>
+              {/* Add field */}
+              <div className="field">
+                <button
+                  type="button"
+                  className="btn btn-light btn-lg btn-block field-add"
+                  onClick={(ev) => {
+                    ev.preventDefault()
+                    props.onAddFieldClick()
+                  }}
+                >
+                  Add Field
+                </button>
+              </div>
+
             </div>
-
           </div>
-        </div>
 
-        {/* Preview */}
-        <div
-          className="tab-pane fade"
-          id="schema-editor-preview"
-          role="tabpanel"
-          aria-labelledby="profile-tab"
-        >
-          <EditorPreview />
-        </div>
+          {/* Preview */}
+          <div
+            className="tab-pane fade"
+            id="schema-editor-preview"
+            role="tabpanel"
+            aria-labelledby="profile-tab"
+          >
+            <EditorPreview />
+          </div>
 
-      </div>
+        </div>
+      }
 
     </div>
   )
