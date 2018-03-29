@@ -23,7 +23,7 @@
     "compile": "babel src --out-dir lib --copy-files",
     "compile:prod": "NODE_ENV=production npm run compile",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --open",
     "lint": "eslint src test",
     "prepush": "npm run test",
     "pretest": "npm run lint",
@@ -42,7 +42,7 @@
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "tableschema": "^1.9.0",
+    "tableschema": "~1.7.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
