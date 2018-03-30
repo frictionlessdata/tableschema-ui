@@ -28,13 +28,13 @@ const EditorField = storeManager.connect({
     <div className="field">
 
       {/* General */}
-      <div className="form-row">
+      <div className="row">
 
         {/* Name */}
-        <div className="col-md-4">
+        <div className="col-lg-4">
           <div className="input-group">
-            <div className="input-group-prepend">
-              <div className="input-group-text">Name</div>
+            <div className="input-group-addon">
+              <div>Name</div>
             </div>
             <input
               type="text"
@@ -48,10 +48,10 @@ const EditorField = storeManager.connect({
         </div>
 
         {/* Type */}
-        <div className="col-md-3">
+        <div className="col-lg-3">
           <div className="input-group">
-            <div className="input-group-prepend">
-              <div className="input-group-text">Type</div>
+            <div className="input-group-addon">
+              <div>Type</div>
             </div>
             <select
               className="form-control"
@@ -69,10 +69,10 @@ const EditorField = storeManager.connect({
         </div>
 
         {/* Format */}
-        <div className="col-md-3">
+        <div className="col-lg-3">
           <div className="input-group">
-            <div className="input-group-prepend">
-              <div className="input-group-text">Format</div>
+            <div className="input-group-addon">
+              <div>Format</div>
             </div>
             <EditorFieldFormat
               formats={formats}
@@ -85,7 +85,7 @@ const EditorField = storeManager.connect({
         </div>
 
         {/* Controls */}
-        <div className="col-md-2">
+        <div className="col-lg-2">
 
           {/* Details */}
           <button
@@ -117,66 +117,69 @@ const EditorField = storeManager.connect({
 
       {/* Details */}
       <div className="collapse field-details" id={`field-details-${props.column.id}`}>
-        <div className="card card-body">
-          <div className="row">
+        <div className="panel panel-default">
+          <div className="panel-body">
+            <div className="row">
 
-            {/* Extra fields */ }
-            <div className="col-md-4">
+              {/* Extra fields */ }
+              <div className="col-lg-4">
 
-              {/* Title */}
-              <div className="form-group">
-                <label htmlFor={`field-title-${props.column.id}`}>
-                  Title
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id={`field-title-${props.column.id}`}
-                  defaultValue={props.column.field.title}
-                  onBlur={(ev) =>
-                    props.onFieldPropertyChange(props.column.id, 'title', ev.target.value)
-                  }
-                />
-              </div>
-
-              {/* Description */}
-              <div className="form-group">
-                <label htmlFor={`field-description-${props.column.id}`}>
-                  Description
-                </label>
-                <textarea
-                  type="text"
-                  className="form-control"
-                  id={`field-description-${props.column.id}`}
-                  defaultValue={props.column.field.description}
-                  onBlur={(ev) => {
-                    const value = ev.target.value
-                    props.onFieldPropertyChange(props.column.id, 'description', value)
-                  }}
-                />
-              </div>
-
-            </div>
-
-            {/* Sample data */}
-            <div className="col-md-8">
-              {!!props.column.values.length &&
+                {/* Title */}
                 <div className="form-group">
-                  <label>Data <small>(first 10 rows)</small></label>
-                  <table className="table table-sm">
-                    <thead>
-                      <tr><th>{props.column.field.name}</th></tr>
-                    </thead>
-                    <tbody>
-                      {props.column.values.map(value => (
-                        <tr><td>{value}</td></tr>
-                      ))}
-                    </tbody>
-                  </table>
+                  <label htmlFor={`field-title-${props.column.id}`}>
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id={`field-title-${props.column.id}`}
+                    defaultValue={props.column.field.title}
+                    onBlur={(ev) =>
+                      props.onFieldPropertyChange(props.column.id, 'title', ev.target.value)
+                    }
+                  />
                 </div>
-              }
-            </div>
 
+                {/* Description */}
+                <div className="form-group">
+                  <label htmlFor={`field-description-${props.column.id}`}>
+                    Description
+                  </label>
+                  <textarea
+                    type="text"
+                    rows="5"
+                    className="form-control"
+                    id={`field-description-${props.column.id}`}
+                    defaultValue={props.column.field.description}
+                    onBlur={(ev) => {
+                      const value = ev.target.value
+                      props.onFieldPropertyChange(props.column.id, 'description', value)
+                    }}
+                  />
+                </div>
+
+              </div>
+
+              {/* Sample data */}
+              <div className="col-lg-8">
+                {!!props.column.values.length &&
+                  <div className="form-group">
+                    <label>Data <small>(first 5 rows)</small></label>
+                    <table className="table table-condensed">
+                      <thead>
+                        <tr><th>{props.column.field.name}</th></tr>
+                      </thead>
+                      <tbody>
+                        {props.column.values.map(value => (
+                          <tr><td>{value}</td></tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                }
+              </div>
+
+            </div>
           </div>
         </div>
       </div>

@@ -35,17 +35,17 @@ const EditorSchemaConsumer = storeManager.connect({
     <div className="tableschema-ui-editor">
 
       {/* Tab navigation */}
-      <ul className="nav nav-pills" role="tablist">
+      <ul className="nav nav-pills navigation" role="tablist">
 
         {/* Title */}
         <li>
-          <h2 className="mr-4">Schema Editor</h2>
+          <h2 className="title">Schema Editor</h2>
         </li>
 
         {/* Edit/Error */}
-        <li className="nav-item">
+        <li className="nav-item active">
           <a
-            className="nav-link active"
+            className="nav-link"
             data-toggle="tab"
             href="#schema-editor-fields"
             role="tab"
@@ -101,11 +101,11 @@ const EditorSchemaConsumer = storeManager.connect({
 
       {/* Tab contents */}
       {!props.error &&
-        <div className="tab-content">
+        <div className="tab-content content">
 
-          {/* Fields */}
+          {/* Edit */}
           <div
-            className="tab-pane fade show active"
+            className="tab-pane active"
             id="schema-editor-fields"
             role="tabpanel"
             aria-labelledby="home-tab"
@@ -136,7 +136,7 @@ const EditorSchemaConsumer = storeManager.connect({
 
           {/* Preview */}
           <div
-            className="tab-pane fade"
+            className="tab-pane"
             id="schema-editor-preview"
             role="tabpanel"
             aria-labelledby="profile-tab"

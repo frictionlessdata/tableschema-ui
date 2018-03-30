@@ -13,7 +13,7 @@ const importSchema = async (source, schema) => {
   const tableSource = await prepareTableSource(source)
   const tableOptions = await prepareTableOptions(schema)
   const table = await Table.load(tableSource, tableOptions)
-  const rows = await table.read({limit: 10, cast: false})
+  const rows = await table.read({limit: 5, cast: false})
   if (rows.length) await table.infer()
 
   // Compose columns

@@ -1,23 +1,49 @@
+/* EditorSchema */
+
+.tableschema-ui-editor .navigation .title {
+  margin-right: 0.5em;
+}
+
+.tableschema-ui-editor .navigation .nav-link {
+  margin-top: 1.2em;
+}
+
+/* EditorField */
+
 .tableschema-ui-editor .field {
   padding: 0.5em 0;
 }
 
-.tableschema-ui-editor .input-group-text {
+.tableschema-ui-editor .field .input-group-addon {
   background-color: #fafafa;
   font-size: 80%;
   color: #aaa;
-  width: 5em;
 }
 
-.tableschema-ui-editor .btn-light  {
+.tableschema-ui-editor .field .input-group-addon div {
+  width: 3em;
+}
+
+.tableschema-ui-editor .field .btn-light  {
   border: solid 1px #ddd;
   background-color: #fafafa;
   font-size: 80%;
   color: #555;
 }
 
-.tableschema-ui-editor .btn-light:hover  {
+.tableschema-ui-editor .field .btn-light:hover  {
   background-color: #eee;
+}
+
+.tableschema-ui-editor .field .button-details,
+.tableschema-ui-editor .field .button-remove {
+  float: left;
+}
+
+@media (min-width: 1200px) {
+  .tableschema-ui-editor .field .button-remove {
+    float: right;
+  }
 }
 
 .tableschema-ui-editor .field-name  {
@@ -33,26 +59,17 @@
   color: #555;
 }
 
+.tableschema-ui-editor .field-details .panel {
+  margin-top: 1em;
+}
+
+/* EditorPreview */
+
 .tableschema-ui-editor .preview {
   color: #333;
+  background-color: #fff;
+  border: none;
+  font-size: 100%;
 }
 
-.tableschema-ui-editor .button-details {
-  width: 6em;
-}
-
-.tableschema-ui-editor .button-remove {
-  width: 6em;
-}
-
-@media (min-width: 768px) {
-  .tableschema-ui-editor .button-details {
-    margin-left: 1em;
-  }
-
-  .tableschema-ui-editor .button-remove {
-    color: #333;
-    float: right;
-  }
-}
-
+/* EditorFeedback */
