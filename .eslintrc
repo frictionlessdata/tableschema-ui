@@ -142,3 +142,5 @@ rules:
     - off
   jsx-a11y/label-has-for:
     - off
+  react/no-array-index-key:
+    - off
