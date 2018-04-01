@@ -76,7 +76,7 @@
       const component = tableschemaUI.EditorSchema
       const element = document.getElementById('editor-schema')
       const source = ($('#source-file').prop('files') || [])[0] || $('#source-link').val()
-      const schema = savedSchema || ($('#schema-file').prop('files') || [])[0] || $('#schema-link').val() || JSON.parse($('#schema-json').val() || 'null')
+      const schema = savedSchema || ($('#schema-file').prop('files') || [])[0] || $('#schema-link').val() || $('#schema-json').val()
       const onSave = (schema, error) => {
         if (!error) {
           $('#schema-output').html(JSON.stringify(schema, null, 2))

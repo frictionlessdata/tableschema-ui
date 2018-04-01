@@ -18,7 +18,7 @@ const importSchema = async (source, schema) => {
 
   // Compose columns
   const columns = []
-  if (table.schema) {
+  if (table.schema && table.schema.descriptor.fields) {
     for (const [index, field] of table.schema.descriptor.fields.entries()) {
       const values = rows.map(row => row[index]).filter(value => value !== undefined)
       columns.push(createColumn(columns, field, values))
@@ -96,6 +96,11 @@ const prepareTableOptions = async (schema) => {
   if (schema instanceof File) {
     const text = await readFile(schema)
     return {schema: JSON.parse(text)}
+  }
+
+  // Schema stringified
+  if (schema.trim && schema.trim().startsWith('{')) {
+    return {schema: JSON.parse(schema)}
   }
 
   // Schema url
