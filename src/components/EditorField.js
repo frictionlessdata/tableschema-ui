@@ -170,8 +170,8 @@ const EditorField = storeManager.connect({
                         <tr><th>{props.column.field.name}</th></tr>
                       </thead>
                       <tbody>
-                        {props.column.values.map(value => (
-                          <tr><td>{value}</td></tr>
+                        {props.column.values.map((value, index) => (
+                          <tr key={index}><td>{value}</td></tr>
                         ))}
                       </tbody>
                     </table>
