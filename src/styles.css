@@ -51,10 +51,16 @@
 
 .tableschema-ui-editor-field .button-details,
 .tableschema-ui-editor-field .button-remove {
-  float: left;
+  width: 50%;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 @media (min-width: 1200px) {
+  .tableschema-ui-editor-field .button-details,
+  .tableschema-ui-editor-field .button-remove {
+    width: 4.5vw;
+  }
   .tableschema-ui-editor-field .button-remove {
     float: right;
   }
