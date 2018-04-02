@@ -20,8 +20,10 @@ const EditorFeedback = storeManager.connect({
 
   // Render
   return (
-    <div className={classNames('alert', `alert-${props.feedback.type}`)}>
-      {props.feedback.message}
+    <div className="tableschema-ui-editor-feedback">
+      <div className={classNames('alert', `alert-${props.feedback.type}`)}>
+        {props.feedback.message}
+      </div>
     </div>
   )
 })

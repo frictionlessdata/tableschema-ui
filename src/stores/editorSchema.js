@@ -1,4 +1,5 @@
 const find = require('lodash/find')
+const {arrayMove} = require('react-sortable-hoc')
 const {StoreManager} = require('../store')
 const helpers = require('../helpers')
 
@@ -41,6 +42,9 @@ const handlers = {
       }
     },
 
+  onMoveFieldEnd:
+    ({oldIndex, newIndex}) => ({type: 'MOVE_FIELD', oldIndex, newIndex}),
+
   onAddFieldClick:
     () => ({type: 'ADD_FIELD'}),
 
@@ -74,12 +78,19 @@ const mutations = {
       state.onSave = onSave
     },
 
-  // Field
+  // Schema
+
+  MOVE_FIELD:
+    (state, {oldIndex, newIndex}) => {
+      state.columns = arrayMove(state.columns, oldIndex, newIndex)
+    },
 
   ADD_FIELD:
     (state) => {
       state.columns.push(helpers.createColumn(state.columns))
     },
+
+  // Field
 
   REMOVE_FIELD:
     (state, {columnId}) => {

@@ -19,11 +19,13 @@ const EditorPreview = storeManager.connect({
 
   // Render
   return (
-    <pre className="preview">
-      <code>
-        {schemaAsText}
-      </code>
-    </pre>
+    <div className="tableschema-ui-editor-preview">
+      <pre>
+        <code>
+          {schemaAsText}
+        </code>
+      </pre>
+    </div>
   )
 })
 

@@ -1,6 +1,7 @@
 const React = require('react')
 const {hot} = require('react-hot-loader')
 const {Provider} = require('react-redux')
+const {SortableContainer, SortableElement, SortableHandle} = require('react-sortable-hoc')
 const {EditorField} = require('./EditorField')
 const {EditorPreview} = require('./EditorPreview')
 const {EditorFeedback} = require('./EditorFeedback')
@@ -28,11 +29,11 @@ const EditorSchemaConsumer = storeManager.connect({
 
   name: 'EditorSchemaConsumer',
   mapState: ['columns', 'error'],
-  mapDispatch: ['onSaveClick', 'onAddFieldClick'],
+  mapDispatch: ['onSaveClick', 'onMoveFieldEnd', 'onAddFieldClick'],
 
 })((props) => {
   return (
-    <div className="tableschema-ui-editor">
+    <div className="tableschema-ui-editor-schema">
 
       {/* Tab navigation */}
       <ul className="nav nav-pills navigation" role="tablist">
@@ -113,15 +114,18 @@ const EditorSchemaConsumer = storeManager.connect({
             <div className="form-group fields">
 
               {/* List fields */}
-              {props.columns.map(column => (
-                <EditorField key={column.id} columnId={column.id} />
-              ))}
+              <SortableFields
+                columns={props.columns}
+                helperClass='tableschema-ui-editor-sortable-body'
+                onSortEnd={props.onMoveFieldEnd}
+                lockAxis='y'
+              />
 
               {/* Add field */}
-              <div className="field">
+              <div>
                 <button
                   type="button"
-                  className="btn btn-light btn-lg btn-block field-add"
+                  className="btn btn-light btn-lg btn-block"
                   onClick={(ev) => {
                     ev.preventDefault()
                     props.onAddFieldClick()
@@ -150,6 +154,24 @@ const EditorSchemaConsumer = storeManager.connect({
     </div>
   )
 })
+
+
+const SortableFields = SortableContainer(({columns}) => {
+  return (
+    <ul className="tableschema-ui-editor-sortable-list">
+      {columns.map((column, index) => (
+        <SortableField key={column.id} index={index} column={column} />
+      ))}
+    </ul>
+  );
+})
+
+
+const SortableField = SortableElement(({column}) =>
+  <li className="tableschema-ui-editor-sortable-item">
+    <EditorField key={column.id} columnId={column.id} />
+  </li>
+)
 
 
 // System

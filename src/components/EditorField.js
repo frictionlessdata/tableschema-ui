@@ -25,7 +25,7 @@ const EditorField = storeManager.connect({
 
   // Render
   return (
-    <div className="field">
+    <div className="tableschema-ui-editor-field">
 
       {/* General */}
       <div className="row">
