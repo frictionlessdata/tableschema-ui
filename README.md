@@ -174,6 +174,12 @@ $ npm run build
 $ npm run test
 ```
 
+Statefull components use `redux` combined with `immer` (see `src/store.js`). Instead of classical `initialState/actionCreators/reducers` there are:
+- `initial` - initial store state
+- `handlers` - callbacks available in components to dispatch actions
+- `mutations` - `immer` based state reducers. The same as `redux` reducers but it allows us to change state in-place preserving immutability on the system level (see `redux-box`)
+- `processor` - a mutation which is called after every state change
+
 ## Changelog
 
 Here described only breaking and the most important changes. The full changelog and documentation for all released versions could be found in nicely formatted [commit history](https://github.com/frictionlessdata/datapackage-ui/commits/master).

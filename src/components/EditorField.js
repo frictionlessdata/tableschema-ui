@@ -49,7 +49,7 @@ const EditorField = storeManager.connect({
         </div>
 
         {/* Type */}
-        <div className="col-lg-3">
+        <div className="col-lg-3 type">
           <div className="input-group">
             <div className="input-group-addon">
               <div>Type</div>
@@ -70,7 +70,7 @@ const EditorField = storeManager.connect({
         </div>
 
         {/* Format */}
-        <div className="col-lg-3">
+        <div className="col-lg-3 format">
           <div className="input-group">
             <div className="input-group-addon">
               <div>Format</div>
@@ -86,7 +86,7 @@ const EditorField = storeManager.connect({
         </div>
 
         {/* Controls */}
-        <div className="col-lg-2">
+        <div className="col-lg-2 controls">
 
           {/* Details */}
           <button
@@ -123,7 +123,7 @@ const EditorField = storeManager.connect({
             <div className="row">
 
               {/* Extra fields */ }
-              <div className="col-lg-4">
+              <div className="col-lg-4 extra">
 
                 {/* Title */}
                 <div className="form-group">
@@ -162,7 +162,7 @@ const EditorField = storeManager.connect({
               </div>
 
               {/* Sample data */}
-              <div className="col-lg-8">
+              <div className="col-lg-8 data">
                 {!!props.column.values.length &&
                   <div className="form-group">
                     <label>Data <small>(first 5 rows)</small></label>
