@@ -28,7 +28,7 @@ const EditorSchema = ({source, schema, onSave}) => {
 const EditorSchemaConsumer = storeManager.connect({
 
   name: 'EditorSchemaConsumer',
-  mapState: ['columns', 'error'],
+  mapState: ['columns', 'loading', 'error'],
   mapDispatch: ['onSaveClick', 'onMoveFieldEnd', 'onAddFieldClick'],
 
 })((props) => {
@@ -60,7 +60,7 @@ const EditorSchemaConsumer = storeManager.connect({
         </li>
 
         {/* Preview */}
-        {!props.error &&
+        {!props.loading && !props.error &&
           <li className="nav-item">
             <a
               className="nav-link"
@@ -76,22 +76,24 @@ const EditorSchemaConsumer = storeManager.connect({
         }
 
         {/* Save/Close */}
-        <li className="nav-item">
-          <a
-            className="nav-link"
-            href="#"
-            role="tab"
-            aria-selected="false"
-            onClick={(ev) => {
-              ev.preventDefault()
-              props.onSaveClick()
-            }}
-          >
-            {!props.error
-              ? <span><small>3.</small> Save</span>
-              : <span>Close</span>}
-          </a>
-        </li>
+        {!props.loading &&
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              href="#"
+              role="tab"
+              aria-selected="false"
+              onClick={(ev) => {
+                ev.preventDefault()
+                props.onSaveClick()
+              }}
+            >
+              {!props.error
+                ? <span><small>3.</small> Save</span>
+                : <span>Close</span>}
+            </a>
+          </li>
+        }
 
       </ul>
 
@@ -101,7 +103,7 @@ const EditorSchemaConsumer = storeManager.connect({
       <EditorFeedback />
 
       {/* Tab contents */}
-      {!props.error &&
+      {!props.loading && !props.error &&
         <div className="tab-content content">
 
           {/* Edit */}

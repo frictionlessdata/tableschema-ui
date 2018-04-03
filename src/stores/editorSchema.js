@@ -9,6 +9,7 @@ const helpers = require('../helpers')
 const initial = {
   columns: [],
   metadata: {},
+  loading: false,
   feedback: null,
   onSave: null,
   error: null,
@@ -23,6 +24,7 @@ const handlers = {
 
   onRender:
     ({source, schema, onSave}) => (dispatch) => {
+      dispatch({type: 'SET_LOAD_START'})
       dispatch(async () => {
         try {
           const {columns, metadata} = await helpers.importSchema(source, schema)
@@ -65,8 +67,14 @@ const mutations = {
 
   // General
 
+  SET_LOAD_START:
+    (state) => {
+      state.loading = true
+    },
+
   SET_LOAD_SUCCESS:
     (state, {columns, metadata, onSave}) => {
+      state.loading = false
       state.columns = columns
       state.metadata = metadata
       state.onSave = onSave
@@ -74,6 +82,7 @@ const mutations = {
 
   SET_LOAD_ERROR:
     (state, {error, onSave}) => {
+      state.loading = false
       state.error = error
       state.onSave = onSave
     },
@@ -110,6 +119,14 @@ const mutations = {
 
 const processor = (state) => {
   state.feedback = null
+
+  // Loading warning
+  if (state.loading) {
+    state.feedback = {
+      type: 'warning',
+      message: 'Data source or data schema are loading. Please wait'
+    }
+  }
 
   // Loading error
   if (state.error) {
