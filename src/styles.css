@@ -1,14 +1,5 @@
 /* EditorSchema */
 
-.tableschema-ui-editor-schema .navigation .title {
-  margin-right: 0.5em;
-}
-
-.tableschema-ui-editor-schema .navigation .nav-link {
-  margin-top: 1.2em;
-}
-
-
 .tableschema-ui-editor-schema .btn-light {
   border: solid 1px #ddd;
   background-color: #fafafa;
@@ -18,6 +9,14 @@
 
 .tableschema-ui-editor-schema .btn-light:hover  {
   background-color: #eee;
+}
+
+.tableschema-ui-editor-schema .navigation .title {
+  margin-right: 0.5em;
+}
+
+.tableschema-ui-editor-schema .navigation .nav-link {
+  margin-top: 1.2em;
 }
 
 
@@ -31,7 +30,6 @@
   background-color: #fafafa;
   font-size: 80%;
   color: #aaa;
-  cursor: default;
 }
 
 .tableschema-ui-editor-field .input-group-addon div {
@@ -47,6 +45,28 @@
 
 .tableschema-ui-editor-field .btn-light:hover  {
   background-color: #eee;
+}
+
+.tableschema-ui-editor-field .name .handle {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .tableschema-ui-editor-field .name .handle {
+    cursor: row-resize;
+    display: block;
+    position: absolute;
+    margin-left: 0.2em;
+    font-size: 175%;
+    color: #aaa;
+  }
+  .tableschema-ui-editor-field .name .input-group {
+    margin-left: 2.5em;
+  }
+}
+
+.tableschema-ui-editor-field .name input {
+  font-weight: bold;
 }
 
 .tableschema-ui-editor-field .button-details,
@@ -66,24 +86,22 @@
   }
 }
 
-.tableschema-ui-editor-field .field-name  {
-  font-weight: bold;
+@media (min-width: 1200px) {
+  .tableschema-ui-editor-field .details {
+    margin-left: 2.5em;
+  }
 }
 
-.tableschema-ui-editor-field .field-details {
-  cursor: default;
-}
-
-.tableschema-ui-editor-field .field-details .card {
+.tableschema-ui-editor-field .details .card {
   margin-top: 1em;
 }
 
-.tableschema-ui-editor-field .field-details label {
+.tableschema-ui-editor-field .details label {
   font-size: 80%;
   color: #555;
 }
 
-.tableschema-ui-editor-field .field-details .panel {
+.tableschema-ui-editor-field .details .panel {
   margin-top: 1em;
 }
 
@@ -118,5 +136,4 @@
 
 .tableschema-ui-editor-sortable-item {
   list-style-type: none;
-  cursor: row-resize;
 }

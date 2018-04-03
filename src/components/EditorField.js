@@ -31,14 +31,15 @@ const EditorField = storeManager.connect({
       <div className="row">
 
         {/* Name */}
-        <div className="col-lg-4">
+        <div className="col-lg-4 name">
+          <div className="handle">&equiv;</div>
           <div className="input-group">
             <div className="input-group-addon">
               <div>Name</div>
             </div>
             <input
               type="text"
-              className="form-control field-name"
+              className="form-control"
               defaultValue={props.column.field.name}
               onBlur={(ev) =>
                 props.onFieldPropertyChange(props.column.id, 'name', ev.target.value)
@@ -116,7 +117,7 @@ const EditorField = storeManager.connect({
       </div>
 
       {/* Details */}
-      <div className="collapse field-details" id={`field-details-${props.column.id}`}>
+      <div className="collapse details" id={`field-details-${props.column.id}`}>
         <div className="panel panel-default">
           <div className="panel-body">
             <div className="row">
