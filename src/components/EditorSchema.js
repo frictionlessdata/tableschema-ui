@@ -1,7 +1,7 @@
 const React = require('react')
 const {hot} = require('react-hot-loader')
 const {Provider} = require('react-redux')
-const {SortableContainer, SortableElement, SortableHandle} = require('react-sortable-hoc')
+const {SortableContainer, SortableElement} = require('react-sortable-hoc')
 const {EditorField} = require('./EditorField')
 const {EditorPreview} = require('./EditorPreview')
 const {EditorFeedback} = require('./EditorFeedback')
@@ -118,9 +118,9 @@ const EditorSchemaConsumer = storeManager.connect({
               {/* List fields */}
               <SortableFields
                 columns={props.columns}
-                helperClass='tableschema-ui-editor-sortable-body'
+                helperClass="tableschema-ui-editor-sortable-body"
                 onSortEnd={props.onMoveFieldEnd}
-                lockAxis='y'
+                lockAxis="y"
               />
 
               {/* Add field */}
@@ -158,22 +158,20 @@ const EditorSchemaConsumer = storeManager.connect({
 })
 
 
-const SortableFields = SortableContainer(({columns}) => {
-  return (
-    <ul className="tableschema-ui-editor-sortable-list">
-      {columns.map((column, index) => (
-        <SortableField key={column.id} index={index} column={column} />
-      ))}
-    </ul>
-  );
-})
+const SortableFields = SortableContainer(({columns}) => (
+  <ul className="tableschema-ui-editor-sortable-list">
+    {columns.map((column, index) => (
+      <SortableField key={column.id} index={index} column={column} />
+    ))}
+  </ul>
+))
 
 
-const SortableField = SortableElement(({column}) =>
+const SortableField = SortableElement(({column}) => (
   <li className="tableschema-ui-editor-sortable-item">
     <EditorField key={column.id} columnId={column.id} />
   </li>
-)
+))
 
 
 // System
