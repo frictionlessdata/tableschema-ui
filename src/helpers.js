@@ -12,12 +12,9 @@ const importSchema = async (source, schema) => {
   // Get table/rows/schema
   const tableSource = await prepareTableSource(source)
   const tableOptions = await prepareTableOptions(schema)
-  // TODO:
-  // - we use unofficial `relax_column_count` option
-  // - we set delimiter to avoid csvSniffer usage because of build bug
-  //   (https://github.com/frictionlessdata/tableschema-js/issues/142)
-  const table = await Table.load(tableSource,
-    {relax_column_count: true, delimiter: ',', ...tableOptions, })
+  // TODO: we set delimiter to avoid csvSniffer usage because of build bug
+  // (https://github.com/frictionlessdata/tableschema-js/issues/142)
+  const table = await Table.load(tableSource, {delimiter: ',', ...tableOptions})
   const rows = await table.read({limit: 5, cast: false})
   if (rows.length) await table.infer()
 
