@@ -1259,25 +1259,64 @@
   <script src="//unpkg.com/tableschema-ui/dist/tableschema-ui.min.js"></script>
   <script src="/dist/tableschema-ui.js"></script>
   <script>
-    let savedSchema = null
-    let schemaEditor = null
+
+    // Declare vars
+    let editor = null
+    let source = null
+    let schema = null
+
+    // Source file
+    $('#source-file').change(ev => {
+      if (editor) editor.dispose()
+      source = ev.target.files[0]
+      schema = null
+    })
+
+    // Source link
+    $('#source-link').change(ev => {
+      if (editor) editor.dispose()
+      source = ev.target.value
+      schema = null
+    })
+
+    // Schema file
+    $('#schema-file').change(ev => {
+      if (editor) editor.dispose()
+      schema = ev.target.files[0]
+      source = null
+    })
+
+    // Schema link
+    $('#schema-link').change(ev => {
+      if (editor) editor.dispose()
+      schema = ev.target.value
+      source = null
+    })
+
+    // Schema json
+    $('#schema-json').change(ev => {
+      if (editor) editor.dispose()
+      schema = ev.target.value
+      source = null
+    })
+
+    // Schema edit
     $('#schema-edit').click(() => {
       const component = tableschemaUI.EditorSchema
       const element = document.getElementById('editor-schema')
-      const source = ($('#source-file').prop('files') || [])[0] || $('#source-link').val()
-      const schema = savedSchema || ($('#schema-file').prop('files') || [])[0] || $('#schema-link').val() || $('#schema-json').val()
-      const onSave = (schema, error) => {
+      const onSave = (savedSchema, error) => {
         if (!error) {
+          schema = savedSchema
           $('#schema-output').html(JSON.stringify(schema, null, 2))
-          savedSchema = schema
         }
         $('#modal').modal('hide')
-        schemaEditor.dispose()
-        schemaEditor = null
+        editor.dispose()
+        editor = null
       }
       $('#modal').modal('show')
-      schemaEditor = tableschemaUI.render(component, {source, schema, onSave}, element)
+      editor = tableschemaUI.render(component, {source, schema, onSave}, element)
     })
+
   </script>
 
 </body>
