@@ -158,7 +158,7 @@ const component = tableschemaUI.render(tableschemaUI.EditorSchema, {...props}, e
 
 If data source is provided and data schema is not provided than it will be inferred from the data. The component support various options to provide the source/schema including URL and File object.
 
-#### `<EditorSchema {source, schema, onSave}/>`
+#### `<EditorSchema {source, schema, onSave, disablePreview}/>`
 
 - `source (URL/File/Array[])` - data source
 - `schema (URL/File/String/Object)` - data schema
@@ -183,7 +183,7 @@ Statefull components use `redux` combined with `immer` (see `src/store.js`). Ins
 
 ## Changelog
 
-Here described only breaking and the most important changes. The full changelog and documentation for all released versions could be found in nicely formatted [commit history](https://github.com/frictionlessdata/datapackage-ui/commits/master).
+Here described only breaking and the most important changes. The full changelog and documentation for all released versions could be found in nicely formatted [commit history](https://github.com/frictionlessdata/tableschema-ui/commits/master).
 
 ### v0.1
 
