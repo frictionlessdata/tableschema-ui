@@ -72,6 +72,7 @@ const prepareTableSource = async (source) => {
 
   // Source uploaded
   if (source instanceof File) {
+    if (!source.name.endsWith('csv')) return []
     const text = await readFile(source)
     return () => {
       const stream = new Readable()
@@ -82,6 +83,7 @@ const prepareTableSource = async (source) => {
   }
 
   // Source url
+  if (!source.endsWith('csv')) return []
   return source
 
 }
