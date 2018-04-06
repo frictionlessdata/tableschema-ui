@@ -10,7 +10,7 @@ const {storeManager} = require('../stores/editorSchema')
 
 // Components
 
-const EditorSchema = ({source, schema, onSave}) => {
+const EditorSchema = ({source, schema, onSave, disablePreview}) => {
 
   // Create store
   const store = storeManager.createStore()
@@ -19,7 +19,7 @@ const EditorSchema = ({source, schema, onSave}) => {
   // Render
   return (
     <Provider store={store}>
-      <EditorSchemaConsumer />
+      <EditorSchemaConsumer disablePreview={disablePreview} />
     </Provider>
   )
 }
@@ -54,13 +54,13 @@ const EditorSchemaConsumer = storeManager.connect({
             aria-selected="true"
           >
             {!props.error
-              ? <span><small>1.</small> Edit</span>
+              ? <span>{!props.disablePreview && <small>1.</small>} Edit</span>
               : <span>Error</span>}
           </a>
         </li>
 
         {/* Preview */}
-        {!props.loading && !props.error &&
+        {!props.loading && !props.error && !props.disablePreview &&
           <li className="nav-item">
             <a
               className="nav-link"
@@ -89,7 +89,7 @@ const EditorSchemaConsumer = storeManager.connect({
               }}
             >
               {!props.error
-                ? <span><small>3.</small> Save</span>
+                ? <span>{!props.disablePreview && <small>3.</small>} Save</span>
                 : <span>Close</span>}
             </a>
           </li>

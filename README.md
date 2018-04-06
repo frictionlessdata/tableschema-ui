@@ -163,6 +163,7 @@ If data source is provided and data schema is not provided than it will be infer
 - `source (URL/File/Array[])` - data source
 - `schema (URL/File/String/Object)` - data schema
 - `onSave ((schema, error) => {})` - callback will be executed on the save button click
+- `disablePreview (Boolean)` - if `true` the preview tab will not be shown
 
 ## Contributing
 
