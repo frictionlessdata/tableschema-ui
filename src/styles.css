@@ -105,6 +105,10 @@
   margin-top: 1em;
 }
 
+.tableschema-ui-editor-field .details .data .form-group {
+  overflow: hidden;
+}
+
 
 /* EditorPreview */
 
