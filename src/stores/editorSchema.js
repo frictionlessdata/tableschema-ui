@@ -23,14 +23,20 @@ const handlers = {
   // EditorSchema
 
   onRender:
-    ({source, schema, onSave}) => (dispatch) => {
-      dispatch({type: 'SET_LOAD_START'})
+    ({source, schema, onSave}) => (dispatch, getState) => {
+      dispatch({type: 'SET_RENDER', onSave})
       dispatch(async () => {
         try {
           const {columns, metadata} = await helpers.importSchema(source, schema)
-          dispatch({type: 'SET_LOAD_SUCCESS', columns, metadata, onSave})
+          const state = getState()
+          if (state.loading) {
+            dispatch({type: 'SET_LOAD_SUCCESS', columns, metadata})
+          }
         } catch (error) {
-          dispatch({type: 'SET_LOAD_ERROR', error, onSave})
+          const state = getState()
+          if (state.loading) {
+            dispatch({type: 'SET_LOAD_ERROR', error})
+          }
         }
       })
     },
@@ -43,6 +49,9 @@ const handlers = {
         state.onSave(schema, state.error)
       }
     },
+
+  onReset:
+    () => ({type: 'RESET'}),
 
   onMoveFieldEnd:
     ({oldIndex, newIndex}) => ({type: 'MOVE_FIELD', oldIndex, newIndex}),
@@ -67,24 +76,31 @@ const mutations = {
 
   // General
 
-  SET_LOAD_START:
-    (state) => {
+  SET_RENDER:
+    (state, {onSave}) => {
       state.loading = true
+      state.onSave = onSave
     },
 
   SET_LOAD_SUCCESS:
-    (state, {columns, metadata, onSave}) => {
+    (state, {columns, metadata}) => {
       state.loading = false
       state.columns = columns
       state.metadata = metadata
-      state.onSave = onSave
     },
 
   SET_LOAD_ERROR:
-    (state, {error, onSave}) => {
+    (state, {error}) => {
       state.loading = false
       state.error = error
-      state.onSave = onSave
+    },
+
+  RESET:
+    (state) => {
+      state.loading = false
+      state.error = false
+      state.columns = []
+      state.metadata = {}
     },
 
   // Schema
@@ -124,7 +140,8 @@ const processor = (state) => {
   if (state.loading) {
     state.feedback = {
       type: 'warning',
-      message: 'Data source or data schema are loading. Please wait'
+      message: 'Data source or data schema are loading. Please wait.',
+      reset: true,
     }
   }
 
@@ -132,7 +149,8 @@ const processor = (state) => {
   if (state.error) {
     state.feedback = {
       type: 'danger',
-      message: 'Can\'t load and parse data source or data schema. Please try again'
+      message: 'Can\'t load and parse data source or data schema. Please try again.',
+      reset: true,
     }
   }
 

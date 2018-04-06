@@ -9,7 +9,7 @@ const EditorFeedback = storeManager.connect({
 
   name: 'EditorFeedback',
   mapState: ['feedback'],
-  mapDispatch: [],
+  mapDispatch: ['onReset'],
 
 })((props) => {
 
@@ -22,7 +22,15 @@ const EditorFeedback = storeManager.connect({
   return (
     <div className="tableschema-ui-editor-feedback">
       <div className={classNames('alert', `alert-${props.feedback.type}`)}>
-        {props.feedback.message}
+        <span>{props.feedback.message}</span>
+        {!!props.feedback.reset &&
+          <span>
+            &nbsp;To start from scratch please&nbsp;
+            <a href="#" onClick={(ev) => {ev.preventDefault(); props.onReset()}}>
+              click here
+            </a>.
+          </span>
+        }
       </div>
     </div>
   )
