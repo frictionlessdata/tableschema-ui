@@ -165,7 +165,7 @@ const EditorField = storeManager.connect({
               <div className="col-lg-8 data">
                 {!!props.column.values.length &&
                   <div className="form-group">
-                    <label>Data <small>(first 5 rows)</small></label>
+                    <label>Data <small>(first 5 values)</small></label>
                     <table className="table table-condensed">
                       <thead>
                         <tr><th>{props.column.field.name}</th></tr>
