@@ -1,5 +1,5 @@
 {
-  "lines": 50,
+  "lines": 55,
   "check-coverage": true,
   "include": [
     "src/**/*.js"

@@ -26,7 +26,13 @@ const EditorFeedback = storeManager.connect({
         {!!props.feedback.reset &&
           <span>
             &nbsp;To start from scratch please&nbsp;
-            <a href="#" onClick={(ev) => {ev.preventDefault(); props.onReset()}}>
+            <a
+              href="#"
+              className="reset"
+              onClick={(ev) => {
+                ev.preventDefault(); props.onReset()
+              }}
+            >
               click here
             </a>.
           </span>
