@@ -27,6 +27,7 @@ class StoreManager {
         mapDispatch instanceof Array ? pick(this.handlers, mapDispatch) : mapDispatch
       )(component)
       wrapper.displayName = name
+      wrapper.Inner = component
       return wrapper
     }
   }
