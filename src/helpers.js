@@ -71,14 +71,16 @@ const prepareTableSource = async (source) => {
   }
 
   // Source uploaded
-  if (source instanceof File) {
-    if (!source.name.endsWith('csv')) return []
-    const text = await readFile(source)
-    return () => {
-      const stream = new Readable()
-      stream.push(text)
-      stream.push(null)
-      return stream
+  if (config.IS_BROWSER) {
+    if (source instanceof File) {
+      if (!source.name.endsWith('csv')) return []
+      const text = await readFile(source)
+      return () => {
+        const stream = new Readable()
+        stream.push(text)
+        stream.push(null)
+        return stream
+      }
     }
   }
 
@@ -97,9 +99,11 @@ const prepareTableOptions = async (schema) => {
   }
 
   // Schema uploaded
-  if (schema instanceof File) {
-    const text = await readFile(schema)
-    return {schema: JSON.parse(text)}
+  if (config.IS_BROWSER) {
+    if (schema instanceof File) {
+      const text = await readFile(schema)
+      return {schema: JSON.parse(text)}
+    }
   }
 
   // Schema stringified
