@@ -1,4 +1,3 @@
-const sinon = require('sinon')
 const React = require('react')
 const Enzyme = require('enzyme')
 const {assert} = require('chai')

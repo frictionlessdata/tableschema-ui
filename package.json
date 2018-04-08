@@ -31,7 +31,7 @@
     "profile:prod": "NODE_ENV=production npm run profile",
     "test": "npm run test:node && npm run test:browser",
     "test:node": "NODE_ENV=testing nyc mocha",
-    "test:browser": "echo 'Browser tests are disabled!' || NODE_ENV=testing karma start"
+    "test:browser": "NODE_ENV=testing karma start"
   },
   "dependencies": {
     "classnames": "^2.2.5",

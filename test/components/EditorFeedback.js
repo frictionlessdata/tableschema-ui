@@ -40,7 +40,7 @@ describe('EditorFeedback', () => {
     // Render
     const onReset = sinon.spy()
     const feedback = {type: 'error', message: 'Error Message', reset: true}
-    const wrapper = shallow(<EditorFeedback.Inner feedback={feedback} onReset={onReset} />)
+    const wrapper = shallow(<EditorFeedback.Inner {...{feedback, onReset}} />)
 
     // Assert
     assert.deepEqual(wrapper.find('.tableschema-ui-editor-feedback').length, 1)

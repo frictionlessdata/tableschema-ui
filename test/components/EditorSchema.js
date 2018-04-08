@@ -4,11 +4,10 @@ const Enzyme = require('enzyme')
 const {assert} = require('chai')
 const {shallow} = require('enzyme')
 const Adapter = require('enzyme-adapter-react-16')
-const {EditorField} = require('../../src/components/EditorField')
 const {EditorPreview} = require('../../src/components/EditorPreview')
 const {EditorFeedback} = require('../../src/components/EditorFeedback')
+const {SortableFields} = require('../../src/components/EditorSchema')
 const {EditorSchemaConsumer} = require('../../src/components/EditorSchema')
-const {SortableFields, SortableField} = require('../../src/components/EditorSchema')
 Enzyme.configure({adapter: new Adapter()})
 
 
@@ -57,7 +56,8 @@ describe('EditorSchemaConsumer', () => {
     // Render
     const columns = []
     const onAddFieldClick = sinon.spy()
-    const wrapper = shallow(<EditorSchemaConsumer.Inner {...{columns, onAddFieldClick}} />)
+    const wrapper = shallow(
+      <EditorSchemaConsumer.Inner {...{columns, onAddFieldClick}} />)
 
     // Assert
     const ev = {preventDefault: sinon.spy()}
