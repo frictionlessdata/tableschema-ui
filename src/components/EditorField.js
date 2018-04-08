@@ -163,7 +163,7 @@ const EditorField = storeManager.connect({
 
               {/* Sample data */}
               <div className="col-lg-8 data">
-                {!!props.column.values.length &&
+                {!!(props.column.values || []).length &&
                   <div className="form-group">
                     <label>Data <small>(first 5 values)</small></label>
                     <table className="table table-condensed">
@@ -227,5 +227,8 @@ module.exports = {
 
   // Public
   EditorField,
+
+  // Private
+  EditorFieldFormat,
 
 }
