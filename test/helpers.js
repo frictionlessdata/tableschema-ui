@@ -1,4 +1,3 @@
-const sinon = require('sinon')
 const {assert} = require('chai')
 // const config = require('../src/config')
 const {importSchema, exportSchema} = require('../src/helpers')
@@ -22,6 +21,7 @@ describe('helpers', () => {
     assert.deepEqual(columns[0].values, ['1', '2'])
     assert.deepEqual(columns[1].field, {name: 'name', type: 'string', format: 'default'})
     assert.deepEqual(columns[1].values, ['english', '中国人'])
+    assert.deepEqual(metadata, {missingValues: ['']})
 
   })
 
@@ -53,6 +53,7 @@ describe('helpers', () => {
     assert.deepEqual(columns[0].values, ['1101', '1102'])
     assert.deepEqual(columns[1].field, {name: 'name', type: 'string', format: 'default'})
     assert.deepEqual(columns[1].values, ['John', 'Julie'])
+    assert.deepEqual(metadata, {missingValues: ['']})
 
   })
 
@@ -65,6 +66,7 @@ describe('helpers', () => {
 
     // Assert
     assert.deepEqual(columns.length, 0)
+    assert.deepEqual(metadata, {})
 
   })
 
@@ -77,6 +79,7 @@ describe('helpers', () => {
 
     // Assert
     assert.deepEqual(columns.length, 0)
+    assert.deepEqual(metadata, {missingValues: ['']})
 
   })
 
@@ -113,5 +116,5 @@ describe('helpers', () => {
 // Helpers
 
 const makeUrl = (path) => {
-  return `https://raw.githubusercontent.com/frictionlessdata/tableschema-ui/master/data/${path}`
+  return `https://raw.githubusercontent.com/frictionlessdata/tableschema-ui/master/data/${path}` // eslint-disable-line
 }
