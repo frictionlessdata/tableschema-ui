@@ -38,6 +38,7 @@ const webpackConfig = {
   },
   plugins: [
     new webpack.EnvironmentPlugin({NODE_ENV, DEBUG}),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
   node: {
     fs: 'empty',
