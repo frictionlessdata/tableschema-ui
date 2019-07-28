@@ -11,6 +11,23 @@ A web UI for creating, editing and validating Table Schemas.
 - List of components:
   - `EditorSchema` - table schema editor widget
 
+## Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Examples](#examples)
+- [Documentation](#documentation)
+  - [Render](#render)
+  - [EditorSchema](#editorschema)
+- [Contributing](#contributing)
+- [Changelog](#changelog)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Getting Started
 
 You could use this components in plain JavaScript code or mixing with any modern framework (with native support for React). To render `EditorSchema` you have use `tableschemaUI.render(tableschemaUI.<Component>, props, element)` function.
@@ -185,6 +202,6 @@ Statefull components use `redux` combined with `immer` (see `src/store.js`). Ins
 
 Here described only breaking and the most important changes. The full changelog and documentation for all released versions could be found in nicely formatted [commit history](https://github.com/frictionlessdata/tableschema-ui/commits/master).
 
-### v0.2
+#### v0.2
 
 Initial functional version.

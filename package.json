@@ -29,6 +29,7 @@
     "pretest": "npm run lint",
     "profile": "webpack --profile --json | webpack-bundle-size-analyzer",
     "profile:prod": "NODE_ENV=production npm run profile",
+    "readme": "doctoc --maxlevel 3 README.md",
     "test": "npm run test:node && npm run test:browser",
     "test:node": "NODE_ENV=testing nyc mocha",
     "test:browser": "NODE_ENV=testing karma start"
@@ -59,6 +60,7 @@
     "chai": "^4.1.2",
     "coveralls": "^3.0.0",
     "css-loader": "^0.28.10",
+    "doctoc": "^1.4.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.18.2",
