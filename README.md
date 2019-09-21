@@ -205,6 +205,6 @@ Statefull components use `redux` combined with `immer` (see `src/store.js`). Ins
 
 Here described only breaking and the most important changes. The full changelog and documentation for all released versions could be found in nicely formatted [commit history](https://github.com/frictionlessdata/tableschema-ui/commits/master).
 
-#### v0.2
+#### v1.0
 
-Initial functional version.
+- Initial version
