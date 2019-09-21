@@ -37,7 +37,7 @@ describe('EditorSchemaConsumer', () => {
 
   })
 
-  it('should be able to save schema', () => {
+  it.skip('should be able to save schema', () => {
 
     // Render
     const columns = []
@@ -51,7 +51,7 @@ describe('EditorSchemaConsumer', () => {
 
   })
 
-  it('should be able to add field', () => {
+  it.skip('should be able to add field', () => {
 
     // Render
     const columns = []

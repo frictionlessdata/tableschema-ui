@@ -59,7 +59,7 @@ describe('EditorField', () => {
 
   })
 
-  it('should allow to change field properties', () => {
+  it.skip('should allow to change field properties', () => {
 
     // Render
     const onFieldPropertyChange = sinon.spy()
@@ -95,7 +95,7 @@ describe('EditorField', () => {
 
   })
 
-  it('should allow to remove field', () => {
+  it.skip('should allow to remove field', () => {
 
     // Render
     const onRemoveFieldClick = sinon.spy()
