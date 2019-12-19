@@ -80,6 +80,7 @@
     "mocha": "^5.0.4",
     "nyc": "^14.1.1",
     "react-hot-loader": "^4.0.0",
+    "referencer": "^0.2.5",
     "regenerator-runtime": "^0.11.1",
     "sinon": "^4.4.4",
     "style-loader": "^0.20.3",

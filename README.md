@@ -22,10 +22,14 @@ A web UI for creating, editing and validating Table Schemas.
 
 - [Getting Started](#getting-started)
   - [Installation](#installation)
-  - [Examples](#examples)
 - [Documentation](#documentation)
-  - [Render](#render)
-  - [EditorSchema](#editorschema)
+  - [React](#react)
+  - [Angular](#angular)
+  - [Vue](#vue)
+  - [Working with Render](#working-with-render)
+  - [Working with EditorSchema](#working-with-editorschema)
+- [API Referencer](#api-referencer)
+  - [render(source, schema, onSave, disablePreview)](#rendersource-schema-onsave-disablepreview)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
 
@@ -76,9 +80,9 @@ The package could be used as pluggable script from CDN:
 </script>
 ```
 
-### Examples
+## Documentation
 
-#### React
+### React
 
 You could use presented components as native React component (import from `tableschema-ui/lib` to get native React support):
 
@@ -92,7 +96,7 @@ const element = document.getElementById('component')
 ReactDOM.render(<tableschemaUI.Component ...props />, element)
 ```
 
-#### Angular
+### Angular
 
 The package's components could be used as `angular` component:
 
@@ -113,7 +117,7 @@ class Report {
 }
 ```
 
-#### Vue
+### Vue
 
 The package's components could be used as `vue` component:
 
@@ -130,12 +134,7 @@ const Report = {
 }
 ```
 
-
-## Documentation
-
-The whole public API of this package is described here and follows semantic versioning rules. Everything outside of this readme are private API and could be changed without any notification on any new version.
-
-### Render
+### Working with Render
 
 To render one of the provided component `render` function should be used. Let's see on the basic usage example:
 
@@ -149,15 +148,7 @@ const component = tableschemaUI.render(tableschemaUI.Component, {...props}, elem
 component.dispose()
 ```
 
-#### `render(component, props, element)`
-
-- `component (Component)` - it could be one of provided by the library component
-- `props (Object)` - object containing props
-- `element (Element)` - DOM element to render into
-- **returns** `controls (Object)` - controls object containing:
-  - `dispose (() => {})` - function to remove the component from the DOM
-
-### EditorSchema
+### Working with EditorSchema
 
 This component provides a simple Table Schema editor. Let's see on the basic usage example:
 
@@ -178,12 +169,19 @@ const component = tableschemaUI.render(tableschemaUI.EditorSchema, {...props}, e
 
 If data source is provided and data schema is not provided than it will be inferred from the data. The component support various options to provide the source/schema including URL and File object.
 
-#### `<EditorSchema {source, schema, onSave, disablePreview}/>`
+## API Referencer
 
-- `source (URL/File/Array[])` - data source
-- `schema (URL/File/String/Object)` - data schema
-- `onSave ((schema, error) => {})` - callback will be executed on the save button click
-- `disablePreview (Boolean)` - if `true` the preview tab will not be shown
+### render(source, schema, onSave, disablePreview)
+Render tableschema editor
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| source | <code>Array.&lt;URL/File/Array&gt;</code> | data source |
+| schema | <code>URL/File/String/Object</code> | data schema |
+| onSave | <code>function</code> | callback executed on the save button click |
+| disablePreview | <code>boolean</code> | if `true` the preview tab will not be shown |
+
 
 ## Contributing
 

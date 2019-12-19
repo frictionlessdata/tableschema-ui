@@ -1,12 +1,12 @@
 require('./styles.css')
-const {EditorSchema} = require('./components/EditorSchema')
-const {render} = require('./render')
+const { render } = require('./render')
+const { EditorSchema } = require('./components/EditorSchema')
 
 
 // System
 
 module.exports = {
-  EditorSchema,
   render,
+  EditorSchema,
 }
 

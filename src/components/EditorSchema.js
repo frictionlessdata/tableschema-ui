@@ -10,6 +10,14 @@ const {storeManager} = require('../stores/editorSchema')
 
 // Components
 
+/**
+ * EditorSchema component
+ *
+ * @param {URL/File/Array[]} source - data source
+ * @param {URL/File/String/Object} schema - data schema
+ * @param {Function} onSave - callback executed on the save button click
+ * @param {boolean} disablePreview - if `true` the preview tab will not be shown
+ */
 const EditorSchema = ({source, schema, onSave, disablePreview}) => {
 
   // Create store
