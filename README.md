@@ -185,7 +185,7 @@ Render tableschema editor
 
 ## Contributing
 
-The project follows the [Open Knowledge International coding standards](https://github.com/okfn/coding-standards). There are common commands to work with the project:
+> The project follows the [Open Knowledge International coding standards](https://github.com/okfn/coding-standards). There are common commands to work with the project:
 
 ```bash
 $ npm run dev
