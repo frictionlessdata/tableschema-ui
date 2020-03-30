@@ -1,28 +1,26 @@
 const uuidv4 = require('uuid/v4')
 const omit = require('lodash/omit')
-const {Readable} = require('stream')
-const {Table} = require('tableschema')
+const { Readable } = require('stream')
+const { Table } = require('tableschema')
 const config = require('./config')
-
 
 // Module API
 
 const importSchema = async (source, schema) => {
-
   // Get table/rows/schema
   const tableSource = await prepareTableSource(source)
   const tableOptions = await prepareTableOptions(schema)
   // We set delimiter to avoid csvSniffer usage because of build bug
   // (https://github.com/frictionlessdata/tableschema-js/issues/142)
-  const table = await Table.load(tableSource, {delimiter: ',', ...tableOptions})
-  const rows = await table.read({limit: 5, cast: false})
+  const table = await Table.load(tableSource, { delimiter: ',', ...tableOptions })
+  const rows = await table.read({ limit: 5, cast: false })
   if (rows.length) await table.infer()
 
   // Compose columns
   const columns = []
   if (table.schema && table.schema.descriptor.fields) {
     for (const [index, field] of table.schema.descriptor.fields.entries()) {
-      const values = rows.map(row => row[index]).filter(value => value !== undefined)
+      const values = rows.map((row) => row[index]).filter((value) => value !== undefined)
       columns.push(createColumn(columns, field, values))
     }
   }
@@ -33,38 +31,32 @@ const importSchema = async (source, schema) => {
     metadata = omit(table.schema.descriptor, 'fields')
   }
 
-  return {columns, metadata}
+  return { columns, metadata }
 }
-
 
 const exportSchema = (columns, metadata) => {
-  return {fields: columns.map(column => column.field), ...metadata}
+  return { fields: columns.map((column) => column.field), ...metadata }
 }
 
-
-const createColumn = (columns, field={}, values=[]) => {
+const createColumn = (columns, field = {}, values = []) => {
   const formats = getFieldFormats(field.type)
   const name = field.name || `field${columns.length + 1}`
   const type = formats.length ? field.type : 'string'
   const format = formats.includes(field.format) ? field.format : 'default'
-  return {id: uuidv4(), field: {...field, name, type, format}, values}
+  return { id: uuidv4(), field: { ...field, name, type, format }, values }
 }
-
 
 const getFieldTypes = () => {
   return Object.keys(config.FIELD_TYPES_AND_FORMATS)
 }
 
-
 const getFieldFormats = (type) => {
   return config.FIELD_TYPES_AND_FORMATS[type] || []
 }
 
-
 // Internal
 
 const prepareTableSource = async (source) => {
-
   // Source not provided
   if (!source) {
     return []
@@ -72,7 +64,7 @@ const prepareTableSource = async (source) => {
 
   // Source uploaded
   if (config.IS_BROWSER) {
-    if (source instanceof File) {
+    if (source instanceof window.File) {
       if (!source.name.endsWith('csv')) return []
       const text = await readFile(source)
       return () => {
@@ -87,12 +79,9 @@ const prepareTableSource = async (source) => {
   // Source url
   if (!source.endsWith('csv')) return []
   return source
-
 }
 
-
 const prepareTableOptions = async (schema) => {
-
   // Schema not provided
   if (!schema) {
     return {}
@@ -100,32 +89,29 @@ const prepareTableOptions = async (schema) => {
 
   // Schema uploaded
   if (config.IS_BROWSER) {
-    if (schema instanceof File) {
+    if (schema instanceof window.File) {
       const text = await readFile(schema)
-      return {schema: JSON.parse(text)}
+      return { schema: JSON.parse(text) }
     }
   }
 
   // Schema stringified
   if (schema.trim && schema.trim().startsWith('{')) {
-    return {schema: JSON.parse(schema)}
+    return { schema: JSON.parse(schema) }
   }
 
   // Schema url
-  return {schema}
-
+  return { schema }
 }
-
 
 const readFile = (file) => {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader()
+    const reader = new window.FileReader()
     reader.readAsText(file.slice(0, 65536))
     reader.onload = () => resolve(reader.result)
     reader.onerror = () => reject(reader.error)
   })
 }
-
 
 // System
 

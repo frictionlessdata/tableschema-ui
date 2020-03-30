@@ -5,11 +5,9 @@ const thunk = require('redux-thunk').default
 const produce = require('immer').default
 const config = require('./config')
 
-
 // Module API
 
 class StoreManager {
-
   // Public
 
   constructor(initial, handlers, mutations, processor) {
@@ -19,7 +17,7 @@ class StoreManager {
     this.processor = processor
   }
 
-  connect({name, mapState, mapDispatch}) {
+  connect({ name, mapState, mapDispatch }) {
     return (component) => {
       component.displayName = `${name}Inner`
       const wrapper = reactRedux.connect(
@@ -46,15 +44,15 @@ class StoreManager {
     return (state, action) => {
       if (!state) return this.initial
       const mutation = this.mutations[action.type]
-      return !mutation ? state : produce(state, draft => {
-        mutation(draft, action)
-        this.processor(draft)
-      })
+      return !mutation
+        ? state
+        : produce(state, (draft) => {
+            mutation(draft, action) // eslint-disable-line
+            this.processor(draft) // eslint-disable-line
+          }) // eslint-disable-line
     }
   }
-
 }
-
 
 // System
 

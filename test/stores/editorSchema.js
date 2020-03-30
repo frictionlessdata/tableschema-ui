@@ -1,14 +1,11 @@
 const sinon = require('sinon')
-const {assert} = require('chai')
-const {storeManager} = require('../../src/stores/editorSchema')
-
+const { assert } = require('chai')
+const { storeManager } = require('../../src/stores/editorSchema')
 
 // Tests
 
 describe('editorSchema', () => {
-
   it('should handle onRender success', (done) => {
-
     // Assert
     const store = storeManager.createStore()
     store.subscribe(() => {
@@ -28,20 +25,16 @@ describe('editorSchema', () => {
         assert.deepEqual(state.columns[0].field.name, 'field1')
         done()
       }
-
     })
 
     // Trigger
     const source = null
-    const schema = {fields: [{name: 'field1'}]}
+    const schema = { fields: [{ name: 'field1' }] }
     const onSave = 'onSave'
-    storeManager.handlers.onRender(
-      {source, schema, onSave})(store.dispatch, store.getState)
-
+    storeManager.handlers.onRender({ source, schema, onSave })(store.dispatch, store.getState)
   })
 
   it('should handle onRender error', (done) => {
-
     // Assert
     const store = storeManager.createStore()
     store.subscribe(() => {
@@ -61,20 +54,16 @@ describe('editorSchema', () => {
         assert.deepEqual(state.columns, [])
         done()
       }
-
     })
 
     // Trigger
     const source = null
     const schema = 'bad schema'
     const onSave = 'onSave'
-    storeManager.handlers.onRender(
-      {source, schema, onSave})(store.dispatch, store.getState)
-
+    storeManager.handlers.onRender({ source, schema, onSave })(store.dispatch, store.getState)
   })
 
   it('should handle onSaveClick', () => {
-
     // Prepare
     const onSave = sinon.spy()
     const store = storeManager.createStore()
@@ -84,26 +73,26 @@ describe('editorSchema', () => {
     })
     store.dispatch({
       type: 'SET_LOAD_SUCCESS',
-      columns: [
-        {field: {name: 'field1'}},
-        {field: {name: 'field2'}},
-      ],
+      columns: [{ field: { name: 'field1' } }, { field: { name: 'field2' } }],
       metadata: {
         missingValues: ['-'],
-      }
+      },
     })
 
     // Assert
     storeManager.handlers.onSaveClick()(store.dispatch, store.getState)
-    assert.isTrue(onSave.calledWith({
-      fields: [{name: 'field1'}, {name: 'field2'}],
-      missingValues: ['-'],
-    }, null))
-
+    assert.isTrue(
+      onSave.calledWith(
+        {
+          fields: [{ name: 'field1' }, { name: 'field2' }],
+          missingValues: ['-'],
+        },
+        null
+      )
+    )
   })
 
   it('should handle onReset', () => {
-
     // Prepare
     const store = storeManager.createStore()
     store.dispatch({
@@ -114,40 +103,30 @@ describe('editorSchema', () => {
     store.dispatch(storeManager.handlers.onReset())
     const state = store.getState()
     assert.isFalse(state.loading)
-
   })
 
   it('should handle onMoveFieldEnd', () => {
-
     // Prepare
     const store = storeManager.createStore()
     store.dispatch({
       type: 'SET_LOAD_SUCCESS',
-      columns: [
-        {field: {name: 'field1'}},
-        {field: {name: 'field2'}},
-      ],
+      columns: [{ field: { name: 'field1' } }, { field: { name: 'field2' } }],
       metadata: {},
     })
 
     // Assert
-    store.dispatch(storeManager.handlers.onMoveFieldEnd({oldIndex: 1, newIndex: 0}))
+    store.dispatch(storeManager.handlers.onMoveFieldEnd({ oldIndex: 1, newIndex: 0 }))
     const state = store.getState()
     assert.deepEqual(state.columns[0].field.name, 'field2')
     assert.deepEqual(state.columns[1].field.name, 'field1')
-
   })
 
   it('should handle onAddFieldClick', () => {
-
     // Prepare
     const store = storeManager.createStore()
     store.dispatch({
       type: 'SET_LOAD_SUCCESS',
-      columns: [
-        {field: {name: 'field1'}},
-        {field: {name: 'field2'}},
-      ],
+      columns: [{ field: { name: 'field1' } }, { field: { name: 'field2' } }],
       metadata: {},
     })
 
@@ -157,18 +136,16 @@ describe('editorSchema', () => {
     assert.deepEqual(state.columns[0].field.name, 'field1')
     assert.deepEqual(state.columns[1].field.name, 'field2')
     assert.deepEqual(state.columns[2].field.name, 'field3')
-
   })
 
   it('should handle onRemoveFieldClick', () => {
-
     // Prepare
     const store = storeManager.createStore()
     store.dispatch({
       type: 'SET_LOAD_SUCCESS',
       columns: [
-        {id: 'column1', field: {name: 'field1'}},
-        {id: 'column2', field: {name: 'field2'}},
+        { id: 'column1', field: { name: 'field1' } },
+        { id: 'column2', field: { name: 'field2' } },
       ],
       metadata: {},
     })
@@ -177,18 +154,16 @@ describe('editorSchema', () => {
     store.dispatch(storeManager.handlers.onRemoveFieldClick('column1'))
     const state = store.getState()
     assert.deepEqual(state.columns[0].field.name, 'field2')
-
   })
 
   it('should handle onFieldPropertyChange', () => {
-
     // Prepare
     const store = storeManager.createStore()
     store.dispatch({
       type: 'SET_LOAD_SUCCESS',
       columns: [
-        {id: 'column1', field: {name: 'field1'}},
-        {id: 'column2', field: {name: 'field2'}},
+        { id: 'column1', field: { name: 'field1' } },
+        { id: 'column2', field: { name: 'field2' } },
       ],
       metadata: {},
     })
@@ -208,7 +183,5 @@ describe('editorSchema', () => {
       title: 'Title',
       description: 'Description',
     })
-
   })
-
 })

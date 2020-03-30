@@ -1,24 +1,17 @@
 const React = require('react')
 const find = require('lodash/find')
-const {storeManager} = require('../stores/editorSchema')
+const { storeManager } = require('../stores/editorSchema')
 const helpers = require('../helpers')
-
 
 // Components
 
 const EditorField = storeManager.connect({
-
   name: 'EditorField',
-  mapState: ({columns}, {columnId}) => ({
-    column: find(columns, column => column.id === columnId),
+  mapState: ({ columns }, { columnId }) => ({
+    column: find(columns, (column) => column.id === columnId),
   }),
-  mapDispatch: [
-    'onRemoveFieldClick',
-    'onFieldPropertyChange',
-  ],
-
+  mapDispatch: ['onRemoveFieldClick', 'onFieldPropertyChange'],
 })((props) => {
-
   // Prepare
   const types = helpers.getFieldTypes()
   const formats = helpers.getFieldFormats(props.column.field.type)
@@ -26,10 +19,8 @@ const EditorField = storeManager.connect({
   // Render
   return (
     <div className="tableschema-ui-editor-field">
-
       {/* General */}
       <div className="row">
-
         {/* Name */}
         <div className="col-lg-4 name">
           <div className="handle">&equiv;</div>
@@ -41,9 +32,7 @@ const EditorField = storeManager.connect({
               type="text"
               className="form-control"
               defaultValue={props.column.field.name}
-              onBlur={(ev) =>
-                props.onFieldPropertyChange(props.column.id, 'name', ev.target.value)
-              }
+              onBlur={(ev) => props.onFieldPropertyChange(props.column.id, 'name', ev.target.value)}
             />
           </div>
         </div>
@@ -62,7 +51,7 @@ const EditorField = storeManager.connect({
                 props.onFieldPropertyChange(props.column.id, 'type', ev.target.value)
               }}
             >
-              {types.map(type => (
+              {types.map((type) => (
                 <option key={type}>{type}</option>
               ))}
             </select>
@@ -87,7 +76,6 @@ const EditorField = storeManager.connect({
 
         {/* Controls */}
         <div className="col-lg-2 controls">
-
           {/* Details */}
           <button
             type="button"
@@ -111,9 +99,7 @@ const EditorField = storeManager.connect({
           >
             Remove
           </button>
-
         </div>
-
       </div>
 
       {/* Details */}
@@ -121,15 +107,11 @@ const EditorField = storeManager.connect({
         <div className="panel panel-default">
           <div className="panel-body">
             <div className="row">
-
-              {/* Extra fields */ }
+              {/* Extra fields */}
               <div className="col-lg-4 extra">
-
                 {/* Title */}
                 <div className="form-group">
-                  <label htmlFor={`field-title-${props.column.id}`}>
-                    Title
-                  </label>
+                  <label htmlFor={`field-title-${props.column.id}`}>Title</label>
                   <input
                     type="text"
                     className="form-control"
@@ -143,9 +125,7 @@ const EditorField = storeManager.connect({
 
                 {/* Description */}
                 <div className="form-group">
-                  <label htmlFor={`field-description-${props.column.id}`}>
-                    Description
-                  </label>
+                  <label htmlFor={`field-description-${props.column.id}`}>Description</label>
                   <textarea
                     type="text"
                     rows="5"
@@ -158,77 +138,63 @@ const EditorField = storeManager.connect({
                     }}
                   />
                 </div>
-
               </div>
 
               {/* Sample data */}
               <div className="col-lg-8 data">
-                {!!(props.column.values || []).length &&
+                {!!(props.column.values || []).length && (
                   <div className="form-group">
-                    <label>Data <small>(first 5 values)</small></label>
+                    <label>
+                      Data <small>(first 5 values)</small>
+                    </label>
                     <table className="table table-condensed">
                       <thead>
-                        <tr><th>{props.column.field.name}</th></tr>
+                        <tr>
+                          <th>{props.column.field.name}</th>
+                        </tr>
                       </thead>
                       <tbody>
                         {props.column.values.map((value, index) => (
-                          <tr key={index}><td>{value}</td></tr>
+                          <tr key={index}>
+                            <td>{value}</td>
+                          </tr>
                         ))}
                       </tbody>
                     </table>
                   </div>
-                }
+                )}
               </div>
-
             </div>
           </div>
         </div>
       </div>
-
     </div>
   )
 })
 
-
-const EditorFieldFormat = ({formats, format, onChange}) => {
-
+const EditorFieldFormat = ({ formats, format, onChange }) => {
   // Basic
   if (!formats.includes('custom')) {
     return (
-      <select
-        className="form-control"
-        value={format}
-        onChange={onChange}
-      >
-        {formats.map(format => (
+      <select className="form-control" value={format} onChange={onChange}>
+        {formats.map((format) => (
           <option key={format}>{format}</option>
         ))}
       </select>
     )
 
-  // Custom
+    // Custom
   } else {
-    return (
-      <input
-        type="text"
-        className="form-control"
-        defaultValue={format}
-        onBlur={onChange}
-      />
-    )
+    return <input type="text" className="form-control" defaultValue={format} onBlur={onChange} />
   }
-
 }
-
 
 // System
 
 module.exports = {
-
   // Public
   EditorField,
 
   // Private
   EditorFieldFormat,
-
 }

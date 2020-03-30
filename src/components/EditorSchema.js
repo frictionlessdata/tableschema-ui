@@ -1,12 +1,11 @@
 const React = require('react')
-const {hot} = require('react-hot-loader')
-const {Provider} = require('react-redux')
-const {SortableContainer, SortableElement} = require('react-sortable-hoc')
-const {EditorField} = require('./EditorField')
-const {EditorPreview} = require('./EditorPreview')
-const {EditorFeedback} = require('./EditorFeedback')
-const {storeManager} = require('../stores/editorSchema')
-
+const { hot } = require('react-hot-loader')
+const { Provider } = require('react-redux')
+const { SortableContainer, SortableElement } = require('react-sortable-hoc')
+const { EditorField } = require('./EditorField')
+const { EditorPreview } = require('./EditorPreview')
+const { EditorFeedback } = require('./EditorFeedback')
+const { storeManager } = require('../stores/editorSchema')
 
 // Components
 
@@ -18,11 +17,10 @@ const {storeManager} = require('../stores/editorSchema')
  * @param {Function} onSave - callback executed on the save button click
  * @param {boolean} disablePreview - if `true` the preview tab will not be shown
  */
-const EditorSchema = ({source, schema, onSave, disablePreview}) => {
-
+const EditorSchema = ({ source, schema, onSave, disablePreview }) => {
   // Create store
   const store = storeManager.createStore()
-  store.dispatch(storeManager.handlers.onRender({source, schema, onSave}))
+  store.dispatch(storeManager.handlers.onRender({ source, schema, onSave }))
 
   // Render
   return (
@@ -32,20 +30,15 @@ const EditorSchema = ({source, schema, onSave, disablePreview}) => {
   )
 }
 
-
 const EditorSchemaConsumer = storeManager.connect({
-
   name: 'EditorSchemaConsumer',
   mapState: ['columns', 'loading', 'error'],
   mapDispatch: ['onSaveClick', 'onMoveFieldEnd', 'onAddFieldClick'],
-
 })((props) => {
   return (
     <div className="tableschema-ui-editor-schema">
-
       {/* Tab navigation */}
       <ul className="nav nav-pills navigation" role="tablist">
-
         {/* Title */}
         <li>
           <h2 className="title">Schema Editor</h2>
@@ -61,14 +54,16 @@ const EditorSchemaConsumer = storeManager.connect({
             aria-controls="schema-editor-fields"
             aria-selected="true"
           >
-            {!props.error
-              ? <span>{!props.disablePreview && <small>1. </small>}Edit</span>
-              : <span>Error</span>}
+            {!props.error ? (
+              <span>{!props.disablePreview && <small>1. </small>}Edit</span>
+            ) : (
+              <span>Error</span>
+            )}
           </a>
         </li>
 
         {/* Preview */}
-        {!props.loading && !props.error && !props.disablePreview &&
+        {!props.loading && !props.error && !props.disablePreview && (
           <li className="nav-item">
             <a
               className="nav-link button-preview"
@@ -81,10 +76,10 @@ const EditorSchemaConsumer = storeManager.connect({
               <small>2. </small>Preview
             </a>
           </li>
-        }
+        )}
 
         {/* Save/Close */}
-        {!props.loading &&
+        {!props.loading && (
           <li className="nav-item">
             <a
               className="nav-link button-save"
@@ -96,13 +91,14 @@ const EditorSchemaConsumer = storeManager.connect({
                 props.onSaveClick()
               }}
             >
-              {!props.error
-                ? <span>{!props.disablePreview && <small>3. </small>}Save</span>
-                : <span>Close</span>}
+              {!props.error ? (
+                <span>{!props.disablePreview && <small>3. </small>}Save</span>
+              ) : (
+                <span>Close</span>
+              )}
             </a>
           </li>
-        }
-
+        )}
       </ul>
 
       <hr />
@@ -111,9 +107,8 @@ const EditorSchemaConsumer = storeManager.connect({
       <EditorFeedback />
 
       {/* Tab contents */}
-      {!props.loading && !props.error &&
+      {!props.loading && !props.error && (
         <div className="tab-content content">
-
           {/* Edit */}
           <div
             className="tab-pane active"
@@ -122,7 +117,6 @@ const EditorSchemaConsumer = storeManager.connect({
             aria-labelledby="home-tab"
           >
             <div className="form-group fields">
-
               {/* List fields */}
               <SortableFields
                 columns={props.columns}
@@ -144,7 +138,6 @@ const EditorSchemaConsumer = storeManager.connect({
                   Add Field
                 </button>
               </div>
-
             </div>
           </div>
 
@@ -157,16 +150,13 @@ const EditorSchemaConsumer = storeManager.connect({
           >
             <EditorPreview />
           </div>
-
         </div>
-      }
-
+      )}
     </div>
   )
 })
 
-
-const SortableFields = SortableContainer(({columns}) => (
+const SortableFields = SortableContainer(({ columns }) => (
   <ul className="tableschema-ui-editor-sortable-list">
     {columns.map((column, index) => (
       <SortableField key={column.id} index={index} column={column} />
@@ -174,24 +164,20 @@ const SortableFields = SortableContainer(({columns}) => (
   </ul>
 ))
 
-
-const SortableField = SortableElement(({column}) => (
+const SortableField = SortableElement(({ column }) => (
   <li className="tableschema-ui-editor-sortable-item">
     <EditorField key={column.id} columnId={column.id} />
   </li>
 ))
 
-
 // System
 
 module.exports = {
-
   // Public
-  EditorSchema: module.hot ? hot(module)(EditorSchema): EditorSchema,
+  EditorSchema: module.hot ? hot(module)(EditorSchema) : EditorSchema,
 
   // Private
   EditorSchemaConsumer,
   SortableFields,
   SortableField,
-
 }
