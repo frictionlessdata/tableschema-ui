@@ -18,7 +18,7 @@
     "test"
   ],
   "scripts": {
-    "analyze": "webpack --profile --json | webpack-bundle-size-analyzer",
+    "analyze": "NODE_ENV=production webpack --profile --json | webpack-bundle-size-analyzer",
     "build": "npm run compile && npm run bundle",
     "bundle": "webpack --output-pathinfo --progress --hide-modules && NODE_ENV=production webpack --progress --hide-modules",
     "compile": "babel src --out-dir lib",
