@@ -3,18 +3,10 @@
     "@babel/preset-env",
     "@babel/preset-react",
   ],
-  "plugins": [
-    "@babel/plugin-proposal-object-rest-spread",
-  ],
   "env": {
     "development": {
       "plugins": [
         "react-hot-loader/babel",
-      ],
-    },
-    "testing": {
-      "plugins": [
-        "istanbul",
       ],
     }
   }
