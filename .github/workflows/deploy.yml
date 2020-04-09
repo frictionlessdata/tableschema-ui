@@ -18,7 +18,8 @@ jobs:
     - name: Build
       run: |
         npm run build
-        rm .gitignore
+        echo '!dist/' >> .gitignore
+        git commit -a 'Removed dist from gitignore'
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
