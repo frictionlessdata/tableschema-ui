@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "standard",
+    "plugin:react/recommended"
+  ],
+  "settings": {
+    "react": { "version": "detect" }
+  },
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "react/prop-types": "off",
+    "space-before-function-paren": "off",
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline"
+    }]
+  }
+}
