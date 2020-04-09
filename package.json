@@ -32,7 +32,8 @@
     "readme": "doctoc --maxlevel 3 README.md",
     "test": "npm run test:node && npm run test:browser",
     "test:node": "NODE_ENV=testing nyc mocha",
-    "test:browser": "NODE_ENV=testing karma start"
+    "test:browser": "NODE_ENV=testing karma start",
+    "update": "ncu -u"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -82,6 +83,7 @@
     "karma-spec-reporter": "0.0.32",
     "karma-webpack": "^2.0.13",
     "mocha": "^5.0.4",
+    "npm-check-updates": "^4.1.2",
     "nyc": "^14.1.1",
     "prettier": "^2.0.2",
     "react-hot-loader": "^4.0.0",
