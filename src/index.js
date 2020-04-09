@@ -1,4 +1,4 @@
-require('./styles.css')
+require('./styles/base.css')
 const { render } = require('./render')
 const { EditorSchema } = require('./components/EditorSchema')
 

@@ -1,4 +1,0 @@
---require regenerator-runtime/runtime
---require @babel/register
---timeout 10000
---recursive
