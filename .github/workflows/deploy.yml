@@ -16,7 +16,9 @@ jobs:
     - name: Test
       run: npm run test
     - name: Build
-      run: npm run build
+      run: |
+        npm run build
+        rm .gitignore
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
