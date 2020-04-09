@@ -19,6 +19,8 @@ jobs:
       run: |
         npm run build
         echo '!dist/' >> .gitignore
+        git config --global user.email 'you@example.com'
+        git config --global user.name 'Your Name'
         git commit -a -m 'Removed dist from gitignore'
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
