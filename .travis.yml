@@ -9,10 +9,8 @@ node_js:
   - 12
 
 script:
-  - npm run compile:prod
-  - npm run build:prod
-  - npm run build
   - npm run test
+  - npm run build
 
 after_script:
   - npm run coveralls
