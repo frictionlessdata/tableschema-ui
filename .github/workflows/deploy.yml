@@ -18,13 +18,12 @@ jobs:
     - name: Build
       run: |
         npm run build
-        echo '!dist/' >> .gitignore
-        git config --global user.email 'you@example.com'
-        git config --global user.name 'Your Name'
-        git commit -a -m 'Removed dist from gitignore'
+        mkdir build
+        cp -r dist build/dist
+        cp index.html build
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: .
+        FOLDER: build
