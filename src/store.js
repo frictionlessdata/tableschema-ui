@@ -31,13 +31,9 @@ class StoreManager {
   }
 
   createStore() {
-    return redux.createStore(
-      this.createReducer(),
-      config.IS_BROWSER
-        ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-        : null,
-      redux.applyMiddleware(thunk)
-    )
+    const composeEnhancer =
+      (config.IS_BROWSER && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || redux.compose
+    return redux.createStore(this.createReducer(), composeEnhancer(redux.applyMiddleware(thunk)))
   }
 
   createReducer() {
