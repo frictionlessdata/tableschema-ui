@@ -203,6 +203,10 @@ Statefull components use `redux` combined with `immer` (see `src/store.js`). Ins
 
 Here described only breaking and the most important changes. The full changelog and documentation for all released versions could be found in nicely formatted [commit history](https://github.com/frictionlessdata/tableschema-ui/commits/master).
 
+#### v1.3
+
+- Moved `react` to peer dependencies
+
 #### v1.2
 
 - Rebased on redux@4
